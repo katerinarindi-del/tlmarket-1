@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TL Market — магазин подарков TravelLine</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:#2B3D56;background:#fff;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+img{display:block}
+:root{
+--az:#227BDD;--az-d:#1B66BC;--az-l:#EAF3FD;--az-l2:#D8E9FA;
+--ink:#2B3D56;--ink2:#42566F;--gray:#7C8B9E;
+--line:#E3EBF4;--tile:#F2F6FB;--tile2:#E7EEF7;
+--green:#4CAF50;--violet:#6667D4;--purple:#A456C3;--pink:#CE4FA0;--red:#EB4836;--teal:#20A781;--lime:#95BD24;--cyan:#00A2BC;
+--teams:#6264A7;
+--r:12px;--r-l:20px;--r-s:10px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* шапка */
+.top{position:sticky;top:0;z-index:40;background:#fff;border-bottom:1px solid var(--line)}
+.top-inner{max-width:1180px;margin:0 auto;padding:0 24px;min-height:66px;display:flex;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;border:none;background:none;padding:0}
+.brand-mark{width:36px;height:36px}
+.brand-name{font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--ink)}
+.brand-name em{font-style:normal;color:var(--az)}
+.nav{display:flex;gap:20px;font-size:13.5px;font-weight:600;color:var(--ink2)}
+.nav button{border:none;background:none;padding:5px 0;color:inherit;border-bottom:2px solid transparent;font-weight:600}
+.nav button:hover{border-bottom-color:var(--az);color:var(--az)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:9px}
+.chip-balance{display:inline-flex;align-items:center;gap:6px;background:var(--az-l);color:var(--az);border-radius:999px;padding:8px 14px;font-weight:800;font-size:13px;border:none}
+.chip-ghost{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-weight:700;font-size:13px;color:var(--ink2)}
+.chip-ghost:hover{border-color:var(--az);color:var(--az)}
+.cart-pill{display:inline-flex;align-items:center;gap:7px;background:var(--az);color:#fff;border:none;border-radius:999px;padding:9px 16px;font-weight:700;font-size:13px}
+.cart-pill:hover{background:var(--az-d)}
+
+/* кнопки */
+.btn{border:none;border-radius:var(--r);padding:13px 24px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.btn-az{background:var(--az);color:#fff}.btn-az:hover{background:var(--az-d)}
+.btn-ink{background:var(--ink);color:#fff}.btn-ink:hover{background:#22334A}
+.btn-soft{background:var(--az-l);color:var(--az)}.btn-soft:hover{background:var(--az-l2)}
+.btn-ghost{background:transparent;border:1px solid rgba(43,61,86,.22);color:var(--ink)}.btn-ghost:hover{border-color:rgba(43,61,86,.45)}
+.btn-ghost-w{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff}.btn-ghost-w:hover{border-color:#fff}
+.btn-sm{padding:9px 16px;font-size:13px}.btn-xs{padding:7px 13px;font-size:12.5px}.btn-block{width:100%}
+.btn-danger{background:#FDECEC;color:var(--red)}.btn-danger:hover{background:#FBDCDC}
+.btn:disabled{background:#E8EDF4;color:#A6B2C2;cursor:not-allowed}
+
+/* герой */
+.hero{background:linear-gradient(120deg,#EAF3FD 0%,#F7FBFF 52%,#E3EFFC 100%);border-radius:24px;margin-top:22px;padding:54px 52px;display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(620px 320px at 92% 0%,rgba(34,123,221,.14),transparent 62%)}
+.hero-copy{position:relative;z-index:1}
+.hero h1{color:var(--ink);font-size:clamp(30px,4.4vw,50px);line-height:1.06;letter-spacing:-.025em;margin:0 0 16px;font-weight:800}
+.hero h1 span{color:var(--az)}
+.hero p{color:var(--ink2);font-size:16px;max-width:520px;margin:0 0 30px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.hero-photo{position:relative;z-index:1}
+.hero-photo img{width:100%;height:392px;object-fit:cover;border-radius:18px;border:1px solid #D8E9FA}
+.hero-chip{position:absolute;background:#fff;border-radius:999px;padding:9px 15px;font-weight:800;font-size:13px;box-shadow:0 12px 30px rgba(43,61,86,.16);color:var(--az)}
+.hc1{top:16px;right:16px}
+.hc2{bottom:16px;left:16px;background:var(--ink);color:#fff}
+@media(max-width:940px){.hero{grid-template-columns:1fr;padding:38px 28px}.hero-photo img{height:280px}}
+
+/* шаги */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding:34px 0 4px}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid var(--line);border-radius:18px;padding:24px}
+.step-n{width:34px;height:34px;border-radius:10px;background:var(--az-l);color:var(--az);display:grid;place-items:center;font-weight:800;font-size:14px;margin-bottom:14px}
+.step h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.step p{margin:0;color:var(--gray);font-size:13.5px}
+
+/* тёмная панель автобаллов */
+.auto-band{background:var(--ink);color:#fff;border-radius:24px;padding:42px;margin-top:38px;display:grid;grid-template-columns:1fr 1.15fr;gap:44px;align-items:center}
+@media(max-width:900px){.auto-band{grid-template-columns:1fr;gap:24px;padding:28px}}
+.auto-band h2{margin:0 0 12px;font-size:clamp(22px,2.6vw,30px);font-weight:800}
+.auto-band p{color:rgba(255,255,255,.72);margin:0;font-size:14.5px;max-width:420px}
+.auto-list{display:flex;flex-direction:column;gap:12px}
+.auto-item{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.08);border-radius:14px;padding:14px 16px}
+.auto-item .ic{font-size:18px;line-height:1.3}
+.auto-item b{display:block;font-size:14px;margin-bottom:2px}
+.auto-item span{color:rgba(255,255,255,.72);font-size:13px}
+
+/* секции */
+.sec{padding:40px 0 2px}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head h2{font-size:26px;letter-spacing:-.02em;margin:0;font-weight:800}
+.sec-link{color:var(--az);font-weight:700;font-size:14px;background:none;border:none;padding:0}
+.sec-link:hover{text-decoration:underline;text-underline-offset:3px}
+.page-title{font-size:32px;letter-spacing:-.025em;margin:26px 0 8px;font-weight:800}
+.page-sub{color:var(--gray);margin:0 0 26px;max-width:720px}
+
+/* SSO */
+.sso-wrap{max-width:520px;margin:54px auto 60px;padding:0 24px}
+.sso-card{border:1px solid var(--line);border-radius:24px;padding:38px;box-shadow:0 24px 60px rgba(43,61,86,.08)}
+.sso-brand{display:flex;align-items:center;gap:11px;margin-bottom:22px}
+.sso-card h1{font-size:24px;letter-spacing:-.02em;margin:0 0 6px;font-weight:800}
+.sso-sub{color:var(--gray);font-size:14px;margin:0 0 24px}
+.sso-provider{display:flex;align-items:center;gap:8px;justify-content:center;background:var(--az-l);color:var(--az);border-radius:999px;padding:9px 14px;font-size:12.5px;font-weight:700;margin-top:18px;text-align:center}
+.sso-profile{display:flex;align-items:center;gap:14px;background:var(--az-l);border-radius:16px;padding:16px;margin-bottom:18px}
+.sso-profile img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.sso-name{font-weight:800;font-size:16px}
+.sso-meta{color:var(--gray);font-size:13px}
+.sso-alt{display:block;text-align:center;margin-top:16px;color:var(--az);font-weight:700;font-size:13px;background:none;border:none;width:100%}
+.sso-alt:hover{text-decoration:underline}
+
+/* служебный вход */
+.secret-dot{background:none;border:none;color:rgba(255,255,255,.25);font-size:17px;line-height:1;padding:0 8px;cursor:pointer;vertical-align:middle}
+.secret-dot:hover{color:rgba(255,255,255,.6)}
+.gate-wrap{max-width:420px;margin:70px auto 80px;padding:0 24px}
+.gate-card{border:1px solid var(--line);border-radius:20px;padding:30px}
+.gate-card h1{font-size:20px;margin:0 0 6px;font-weight:800}
+.gate-sub{color:var(--gray);font-size:13px;margin:0 0 18px}
+.gate-err{color:var(--red);font-size:13px;font-weight:700;margin-top:10px}
+.gate-hint{color:var(--gray);font-size:12.5px;margin-top:16px}
+.gate-back{display:block;text-align:center;margin-top:14px;color:var(--az);font-weight:700;font-size:13px;background:none;border:none;width:100%}
+
+/* балансы */
+/* балансы в шапке */
+.bal-chips{display:flex;align-items:center;gap:7px}
+.bal-chip{display:flex;flex-direction:column;gap:1px;border-radius:12px;padding:5px 11px;background:var(--az-l);line-height:1.15;white-space:nowrap;cursor:default}
+.bal-chip .bc-lbl{font-size:9.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--az);opacity:.85}
+.bal-chip .bc-val{font-size:15px;font-weight:800;color:var(--az)}
+.bal-chip.dark{background:var(--ink)}
+.bal-chip.dark .bc-lbl{color:rgba(255,255,255,.75)}
+.bal-chip.dark .bc-val{color:#fff}
+@media(max-width:1440px){.chip-name{display:none}}
+@media(max-width:980px){.bal-chip .bc-lbl{display:none}.bal-chip{padding:7px 10px}}
+
+/* слайдер */
+.slider{position:relative;margin-top:22px;border-radius:8px;overflow:hidden;height:440px;background:#E7EEF7}
+@media(max-width:980px){.slider{height:360px}}
+@media(max-width:780px){.slider{height:250px}}
+.slide{position:absolute;inset:0}
+.slide-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center}
+.slide-grad{position:absolute;inset:0;background:linear-gradient(180deg,rgba(35,50,72,0) 60%,rgba(35,50,72,.34) 100%)}
+.s-nav{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.94);color:var(--ink);font-size:22px;line-height:1;display:grid;place-items:center;z-index:3;box-shadow:0 8px 20px rgba(43,61,86,.2);padding:0 0 2px}
+.s-nav:hover{background:#fff}
+.s-prev{left:14px}.s-next{right:14px}
+.s-dots{position:absolute;left:52px;bottom:22px;display:flex;gap:7px;z-index:3}
+.s-dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.45);border:none;padding:0;transition:width .2s}
+.s-dot.on{background:#fff;width:24px}
+@media(max-width:780px){.s-dots{left:22px;bottom:16px}.s-nav{width:34px;height:34px}}
+
+/* страница администратора, бренд */
+.admin-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 0 18px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.admin-kicker{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--az);margin-bottom:6px}
+.admin-head h1{font-family:'Roboto Condensed',Arial,sans-serif;font-size:34px;line-height:1.1;margin:0;color:var(--ink)}
+.admin-head p{color:var(--gray);margin:6px 0 0;font-size:14px}
+.admin-user{text-align:right;font-weight:700;font-size:14px}
+.admin-user span{display:block;color:var(--gray);font-size:12.5px;font-weight:400}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:6px}
+@media(max-width:900px){.kpi-grid{grid-template-columns:1fr 1fr}}
+.kpi{border:1px solid var(--line);border-radius:8px;padding:15px 18px;background:#fff}
+.kpi-l{font-size:12px;color:var(--gray);margin-bottom:6px}
+.kpi-v{font-family:'Roboto Condensed',Arial,sans-serif;font-size:30px;font-weight:700;line-height:1}
+.kpi-s{font-size:12px;color:var(--gray);margin-top:6px}
+.kpi-s b{color:var(--az);font-weight:700}
+.brand-tag{position:absolute;right:10px;bottom:10px;z-index:1;background:rgba(255,255,255,.94);color:var(--az);font-weight:800;font-size:10.5px;letter-spacing:.06em;border-radius:4px;padding:3px 7px;box-shadow:0 2px 8px rgba(43,61,86,.12)}
+
+/* товар недели */
+.weekly{background:var(--az-l);border-radius:24px;padding:34px;display:grid;grid-template-columns:1fr 1.06fr;gap:44px;align-items:center}
+@media(max-width:940px){.weekly{grid-template-columns:1fr;gap:26px;padding:26px}}
+.weekly-photo{position:relative}
+.weekly-photo img{width:100%;aspect-ratio:4/4.4;object-fit:cover;border-radius:16px}
+.wk-badge{position:absolute;top:14px;left:14px;background:var(--az);color:#fff;border-radius:8px;padding:7px 12px;font-weight:800;font-size:12px;letter-spacing:.04em}
+.wk-kicker{font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;color:var(--az)}
+.weekly-info h2{margin:0 0 10px;font-size:clamp(24px,2.8vw,32px);letter-spacing:-.025em;font-weight:800}
+.weekly-info p{margin:0 0 18px;font-size:14.5px;color:var(--ink2);max-width:520px}
+.price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.price-old{text-decoration:line-through;font-weight:700;font-size:16px;color:var(--gray)}
+.price-new{font-size:36px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.price-new small{font-size:15px;font-weight:700;color:var(--gray)}
+.save-chip{background:var(--az);color:#fff;border-radius:999px;padding:5px 12px;font-weight:800;font-size:12.5px}
+.wk-timer{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--az);border-radius:999px;padding:9px 16px;font-weight:800;font-size:13.5px;margin-bottom:10px}
+.wk-timer b{font-variant-numeric:tabular-nums}
+.wk-stock{font-size:13px;color:var(--gray);margin-bottom:18px}
+.wk-actions{display:flex;gap:10px;flex-wrap:wrap}
+.mini-week{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media(max-width:780px){.mini-week{grid-template-columns:1fr}}
+.mini-item{display:flex;align-items:center;gap:12px;border:1px solid #D8E9FA;border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.7)}
+.mini-e{width:42px;height:42px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:21px;flex:0 0 auto;overflow:hidden}
+.mini-n{font-weight:700;font-size:13.5px}
+.mini-p{color:var(--gray);font-size:12.5px}
+.mini-label{color:var(--gray);font-size:12.5px;margin:18px 0 0}
+
+/* категории */
+.cats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:900px){.cats{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.cats{grid-template-columns:1fr}}
+.cat{border:none;background:none;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px}
+.cat img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px}
+.cat .c1{object-position:center 22%}
+.cat-name{font-weight:800;font-size:16px;display:flex;align-items:center;gap:8px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.cat-sub{color:var(--gray);font-size:13px}
+.cat:hover .cat-name{color:var(--az)}
+
+/* быстрые категории */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+@media(max-width:900px){.quick{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.quick{grid-template-columns:1fr}}
+.quick-item{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;border-radius:16px;padding:12px 14px;text-align:left;transition:border-color .15s,box-shadow .15s}
+.quick-item:hover{border-color:var(--az);box-shadow:0 10px 26px rgba(43,61,86,.09)}
+.quick-thumb{width:44px;height:44px;border-radius:12px;flex:0 0 auto;overflow:hidden;background:#EDF2F8;display:grid;place-items:center;font-size:20px}
+.quick-thumb img{width:100%;height:100%;object-fit:cover}
+.quick-t{font-weight:800;font-size:14px;display:block;line-height:1.2}
+.quick-n{color:var(--gray);font-size:12px}
+/* страница категории */
+.cat-chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 22px}
+.cat-pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;font-weight:700;font-size:13px;color:var(--ink2)}
+.cat-pill:hover{border-color:var(--az);color:var(--az)}
+.cat-pill.on{background:var(--az);border-color:var(--az);color:#fff}
+.cat-count{color:var(--gray);font-size:13.5px;margin:0 0 20px}
+
+/* каталог */
+.cat-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab{border:none;border-radius:999px;padding:9px 16px;font-weight:600;font-size:13.5px;background:var(--tile);color:var(--ink2)}
+.tab:hover{background:var(--tile2)}
+.tab-active{background:var(--az);color:#fff}
+.search{margin-left:auto;border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:13.5px;font-family:inherit;outline:none;min-width:240px;background:#fff;color:var(--ink)}
+.search:focus{border-color:var(--az)}
+@media(max-width:780px){.search{margin-left:0;width:100%}}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:780px){.grid{grid-template-columns:repeat(2,1fr);gap:13px}}
+.card{display:flex;flex-direction:column;gap:9px}
+.card-tile{position:relative;background:var(--tile);border-radius:16px;aspect-ratio:1/1;display:grid;place-items:center;overflow:hidden}
+.card-tile .emoji{font-size:clamp(44px,5.6vw,64px);filter:drop-shadow(0 10px 18px rgba(43,61,86,.13))}
+.card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph{position:relative;overflow:hidden;background:#EDF2F8}
+.ph>img{position:absolute;width:500%;height:400%;max-width:none;object-fit:fill;border-radius:0;left:0;top:0;display:block}
+.ph>img{min-width:0;min-height:0}
+.card-tile.ph,.quick-thumb.ph,.cthumb.ph,.p-thumb.ph,.mini-e.ph,.o-thumb.ph,.thumb-s.ph{position:relative;overflow:hidden}
+.badge{position:absolute;top:11px;left:11px;z-index:1;font-size:11px;font-weight:800;padding:5px 10px;border-radius:8px;letter-spacing:.03em}
+.b-hit{background:var(--az);color:#fff}
+.b-new{background:var(--green);color:#fff}
+.card-name{font-size:14px;font-weight:700;line-height:1.32;min-height:37px}
+.card-desc{color:var(--gray);font-size:12.5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card-price{font-weight:800;font-size:14.5px}
+.card-price small{color:var(--gray);font-weight:600;font-size:12px}
+
+/* корзина */
+.cartbox{background:var(--tile);border-radius:20px;padding:28px;margin-top:34px}
+.cartbox h2{margin:0 0 14px;font-size:20px;letter-spacing:-.01em;font-weight:800}
+.cart-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #E1E9F2}
+.cart-row:last-of-type{border-bottom:none}
+.cthumb{width:48px;height:48px;border-radius:12px;background:#fff;display:grid;place-items:center;font-size:23px;flex:0 0 auto;overflow:hidden}
+.cthumb img{width:100%;height:100%;object-fit:cover}
+.ctitle{font-weight:700;font-size:14px;flex:1;min-width:0}
+.qty{display:inline-flex;align-items:center;gap:9px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid #D3DEEB;background:#fff;font-weight:700;font-size:14px;line-height:1;color:var(--ink)}
+.qty button:hover{border-color:var(--az);color:var(--az)}
+.qty span{font-weight:700;min-width:18px;text-align:center}
+.cline{font-weight:800;white-space:nowrap}
+.cart-total{display:flex;justify-content:space-between;font-weight:800;font-size:19px;margin:16px 0 14px}
+.cart-actions{display:flex;gap:10px;flex-wrap:wrap}
+.notice{background:#FFF8DC;border-radius:12px;padding:12px 16px;font-size:13px;margin-bottom:12px}
+.empty{color:var(--gray);padding:8px 0;margin:0}
+
+/* мои покупки */
+.purchases{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;margin-top:34px}
+.p-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.p-head h2{margin:0;font-size:20px;letter-spacing:-.01em;font-weight:800}
+.p-sum{color:var(--gray);font-size:13px}
+.p-scroll{overflow-x:auto}
+.p-tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+.p-tbl th{text-align:left;color:var(--gray);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.p-tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.p-tbl tbody tr:last-child td{border-bottom:none}
+.p-prod{display:flex;align-items:center;gap:12px}
+.p-thumb{width:44px;height:44px;border-radius:12px;background:var(--tile);display:grid;place-items:center;font-size:21px;overflow:hidden;flex:0 0 auto}
+.p-thumb img{width:100%;height:100%;object-fit:cover}
+.p-name{font-weight:700;font-size:14px}
+.p-num{color:var(--gray);font-size:12.5px}
+.p-cost{font-weight:800;white-space:nowrap}
+.p-cost small{color:var(--gray);font-weight:600;font-size:12px}
+.p-date{white-space:nowrap;font-variant-numeric:tabular-nums}
+.p-empty{color:var(--gray);margin:0;padding:6px 0}
+.p-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:14px}
+.p-foot b{font-weight:800}
+
+/* спасибо */
+.thanks{background:var(--az-l);border-radius:24px;padding:34px;display:grid;grid-template-columns:.92fr 1.08fr;gap:44px;align-items:start}
+@media(max-width:940px){.thanks{grid-template-columns:1fr;gap:26px;padding:26px}}
+.thanks-left{display:flex;flex-direction:column;gap:24px}
+.thanks-photo img{width:100%;aspect-ratio:4/3.5;object-fit:cover;border-radius:16px}
+.thanks-copy h2{margin:0 0 12px;font-size:clamp(24px,2.8vw,32px);letter-spacing:-.025em;font-weight:800}
+.thanks-copy p{margin:0 0 22px;font-size:14.5px;color:var(--ink2);max-width:460px}
+.feed{display:flex;flex-direction:column;gap:13px}
+.fcard{background:#fff;border-radius:16px;padding:19px;border:1px solid #DCEAF9}
+.fhead{display:flex;align-items:center;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+.fnames{font-weight:800;font-size:14px}
+.famount{margin-left:auto;background:var(--az);color:#fff;border-radius:999px;padding:4px 12px;font-weight:800;font-size:13px}
+.ftext{margin:0 0 11px;font-size:14px}
+.ffoot{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tagchip{background:var(--tile);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--ink2)}
+.like{border:none;background:var(--tile);border-radius:999px;padding:6px 13px;font-size:13px;font-weight:700;color:var(--ink2)}
+.like:hover{background:var(--tile2)}
+.like-on{background:#FFE0E0;color:var(--red)}
+
+/* галерея */
+.gal{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:1000px){.gal{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.gal{grid-template-columns:1fr 1fr}}
+.gal img{width:100%;aspect-ratio:1/1.15;object-fit:cover;border-radius:14px}
+.gal-cap{color:var(--gray);font-size:13px;margin:16px 0 0}
+
+/* FAQ */
+.faq-center{max-width:880px;margin:0 auto}
+.faq-head-c{text-align:center;margin-bottom:28px}
+.faq-head-c h2{font-size:28px;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+.faq-head-c p{color:var(--gray);margin:0;font-size:14.5px}
+.faq-head-c a{color:var(--az);text-decoration:none;font-weight:700}
+.faq-head-c a:hover{text-decoration:underline}
+.faq-card{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:#fff;overflow:hidden}
+.faq-card summary{padding:16px 22px;font-weight:700;cursor:pointer;font-size:14.5px;list-style:none;position:relative;padding-right:48px}
+.faq-card summary::-webkit-details-marker{display:none}
+.faq-card summary::after{content:"+";position:absolute;right:20px;top:14px;color:var(--az);font-weight:700;font-size:18px}
+.faq-card[open] summary::after{content:"−"}
+.faq-card p{color:var(--ink2);font-size:14px;margin:0;padding:0 22px 18px;max-width:680px}
+.faq-card p a{color:var(--az);text-decoration:underline;text-underline-offset:3px}
+
+/* пожелания */
+.feedback{background:var(--ink);border-radius:24px;padding:46px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;margin-top:46px;color:#fff}
+@media(max-width:900px){.feedback{grid-template-columns:1fr;gap:24px;padding:28px}}
+.feedback h2{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.02em;margin:0 0 12px;font-weight:800;color:#fff;max-width:420px}
+.fb-lead{color:rgba(255,255,255,.74);font-size:14.5px;margin:0 0 20px;max-width:420px}
+.fb-contact{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:10px 18px;color:#fff;font-weight:700;font-size:13.5px}
+.feedback-card{background:#fff;border-radius:18px;padding:24px;box-shadow:0 28px 70px rgba(0,0,0,.28)}
+.fld{margin-bottom:12px}
+.inp{border:1px solid var(--line);border-radius:var(--r);padding:13px 18px;font-size:14px;font-family:inherit;outline:none;width:100%;background:#fff;color:var(--ink)}
+.inp:focus{border-color:var(--az)}
+textarea.inp{resize:vertical;min-height:84px}
+.fb-actions{display:flex;justify-content:flex-end}
+
+/* подписка */
+.subscribe{background:var(--az);margin-top:64px;position:relative;overflow:hidden}
+.subscribe::before{content:"";position:absolute;inset:0;background:radial-gradient(560px 300px at 88% 6%,rgba(255,255,255,.16),transparent 62%)}
+.sub-inner{position:relative;max-width:1180px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:1.06fr .94fr;gap:44px;align-items:center}
+@media(max-width:940px){.sub-inner{grid-template-columns:1fr;gap:28px;padding:38px 24px}}
+.sub-kicker{font-weight:800;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:12px;color:rgba(255,255,255,.74)}
+.sub-copy h2{font-size:clamp(24px,3.2vw,40px);line-height:1.12;letter-spacing:-.025em;margin:0 0 24px;font-weight:800;max-width:540px;color:#fff}
+.sub-card{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);border-radius:999px;padding:6px;display:flex;gap:8px;align-items:center;max-width:520px}
+.sub-input{flex:1;border:none;outline:none;background:transparent;border-radius:999px;padding:13px 18px;font-size:14.5px;font-family:inherit;color:#fff;min-width:0}
+.sub-input::placeholder{color:rgba(255,255,255,.74)}
+.sub-btn{background:#fff;color:var(--az);border:none;border-radius:999px;padding:13px 26px;font-weight:800;font-size:14.5px;white-space:nowrap}
+.sub-btn:hover{background:#EAF3FD}
+.sub-consent{color:rgba(255,255,255,.74);font-size:12.5px;margin:14px 0 0;max-width:520px}
+.sub-consent a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.sub-idea{color:rgba(255,255,255,.9);font-size:13px;margin:10px 0 0;max-width:520px}
+.sub-idea a{color:#fff;text-decoration:underline;text-underline-offset:3px;font-weight:700}
+
+/* доставка и оплата */
+.back-link{background:none;border:none;color:var(--az);font-weight:700;font-size:13.5px;padding:0;margin:28px 0 0}
+.back-link:hover{text-decoration:underline;text-underline-offset:3px}
+.dlv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:6px 0 0}
+@media(max-width:900px){.dlv-grid{grid-template-columns:1fr}}
+.dlv-card{border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.dlv-top{display:flex;align-items:center;gap:11px}
+.dlv-ico{width:38px;height:38px;border-radius:11px;background:var(--az-l);color:var(--az);display:grid;place-items:center;font-weight:800;font-size:15px;flex:0 0 auto}
+.dlv-h{font-weight:800;font-size:16px}
+.dlv-tag{font-size:12px;font-weight:700;color:var(--az);background:var(--az-l);border-radius:999px;padding:4px 11px;align-self:flex-start}
+.dlv-p{color:var(--ink2);font-size:13.5px;margin:0}
+.dlv-list{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+.dlv-list li{display:flex;gap:8px;font-size:13px;color:var(--gray)}
+.dlv-dot{color:var(--az);font-weight:800;flex:0 0 auto}
+.dlv-two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+@media(max-width:900px){.dlv-two{grid-template-columns:1fr}}
+.dlv-panel{border:1px solid var(--line);border-radius:20px;padding:26px}
+.dlv-panel h2{margin:0 0 12px;font-size:19px;letter-spacing:-.01em;font-weight:800}
+.dlv-pay{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:9px 0;border-bottom:1px solid var(--line)}
+.dlv-pay:last-of-type{border-bottom:none}
+.dlv-pay b{font-weight:700;text-align:right}
+.dlv-note{background:var(--az-l);border-radius:14px;padding:14px 16px;font-size:13.5px;margin-top:14px;color:var(--ink2)}
+.dlv-faq{margin-top:30px}
+.dlv-faq .sec-head{margin-bottom:16px}
+.sub-art img{width:100%;max-width:460px;border-radius:18px;justify-self:end;display:block;box-shadow:0 30px 70px rgba(15,40,75,.35)}
+@media(max-width:940px){.sub-art img{justify-self:center;max-width:400px}}
+
+/* заказ */
+.order-wrap{max-width:760px;margin:34px auto 60px;padding:0 24px}
+.order-card{border:1px solid var(--line);border-radius:22px;padding:30px}
+.order-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.order-num{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.order-sub{color:var(--gray);font-size:13px;margin:0 0 20px}
+.order-line{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+.order-line:last-of-type{border-bottom:none}
+.o-line{display:flex;align-items:center;gap:10px;min-width:0}
+.o-thumb{width:30px;height:30px;border-radius:8px;flex:0 0 auto;overflow:hidden;background:#EDF2F8;display:grid;place-items:center;font-size:15px}
+.o-thumb img{width:100%;height:100%;object-fit:cover}
+.order-total{display:flex;justify-content:space-between;font-weight:800;font-size:18px;margin-top:14px}
+.order-next{background:var(--az-l);border-radius:12px;padding:12px 16px;font-size:13.5px;margin-top:16px}
+.teams-block{margin-top:26px}
+.teams-title{font-weight:800;font-size:15px;margin-bottom:12px;display:flex;align-items:center;gap:9px}
+.teams-logo{width:26px;height:26px;border-radius:7px;background:var(--teams);color:#fff;display:grid;place-items:center;font-weight:800;font-size:12px}
+.teams-card{border:1px solid var(--line);border-left:3px solid var(--teams);border-radius:12px;padding:14px 16px;margin-bottom:10px;background:#FAFAFE}
+.teams-to{font-size:12px;color:var(--gray);font-weight:700;margin-bottom:4px}
+.teams-text{font-size:14px}
+.teams-status{font-size:12px;color:var(--green);font-weight:700;margin-top:6px}
+.order-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+/* админ */
+.atabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 20px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;color:var(--gray);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle}
+.emp{display:flex;align-items:center;gap:9px;white-space:nowrap}
+.emp img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.thumb-s{width:34px;height:34px;border-radius:9px;display:inline-block;vertical-align:middle;margin-right:6px;overflow:hidden;background:#EDF2F8}
+.thumb-s img{width:100%;height:100%;object-fit:cover}
+.status{border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700;display:inline-block;white-space:nowrap}
+.s-new{background:var(--az-l);color:var(--az)}
+.s-pack{background:#FFF4D6;color:#8A6D00}
+.s-ready{background:#E6F7EE;color:#0B7A44}
+.s-done{background:var(--tile);color:var(--ink2)}
+.s-cancel{background:#FDECEC;color:var(--red)}
+.sent{color:var(--green);font-weight:800;font-size:13px}
+.sel{border:1px solid var(--line);border-radius:var(--r);padding:7px 12px;font-size:13px;font-family:inherit;background:#fff;color:var(--ink)}
+.acts{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.panel{border:1px solid var(--line);border-radius:20px;padding:26px;max-width:820px;margin-bottom:18px}
+.panel h2{margin:0 0 16px;font-size:19px;letter-spacing:-.01em;font-weight:800}
+.flabel{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+.flabel:first-child{margin-top:0}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-bottom:6px}
+@media(max-width:780px){.pf-grid{grid-template-columns:1fr}}
+.upload-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1.5px dashed var(--az);border-radius:14px;padding:22px;cursor:pointer;background:#F7FBFF;text-align:center;font-size:13px;color:var(--az);font-weight:700}
+.upload-box:hover{background:#EFF7FF}
+.upload-box input{display:none}
+.up-hint{color:var(--gray);font-weight:500;font-size:12px}
+.pf-preview{margin-top:12px}
+.pf-preview img{width:100%;max-width:220px;border-radius:12px;border:1px solid var(--line)}
+.log-row{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px;align-items:baseline}
+.log-row:last-child{border-bottom:none}
+.log-dot{color:var(--green);font-weight:800}
+.log-date{color:var(--gray);font-size:12px;white-space:nowrap}
+.warn{border:1px solid #FBDCDC;background:#FFFAFA;border-radius:16px;padding:17px 19px;margin-bottom:11px;max-width:820px}
+.warn-t{font-weight:800;font-size:14px;color:var(--red)}
+.warn-x{font-size:14px;margin-top:5px}
+.warn-d{color:var(--gray);font-size:12px;margin-top:7px}
+.admin-note{color:var(--gray);font-size:13px;margin-top:14px}
+.wk-admin{display:flex;align-items:center;gap:12px;border:1px solid var(--az-l2);background:#F7FBFF;border-radius:14px;padding:14px 18px;max-width:820px;margin-bottom:18px;font-size:14px}
+.wk-admin .e{width:40px;height:40px;border-radius:10px;flex:0 0 auto;display:block;overflow:hidden;background:#EDF2F8}
+
+/* автоматизация */
+.auto-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:900px}
+@media(max-width:820px){.auto-grid{grid-template-columns:1fr}}
+.auto-card{border:1px solid var(--line);border-radius:18px;padding:22px}
+.auto-card h3{margin:0 0 6px;font-size:16px;font-weight:800}
+.auto-card p{color:var(--gray);font-size:13px;margin:0 0 14px}
+.auto-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-size:13.5px}
+.switch{position:relative;display:inline-block;width:42px;height:24px;flex:0 0 auto}
+.switch input{opacity:0;width:0;height:0}
+.sw-slider{position:absolute;cursor:pointer;inset:0;background:#CBD5E1;border-radius:999px;transition:.2s}
+.sw-slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked + .sw-slider{background:var(--az)}
+.switch input:checked + .sw-slider:before{transform:translateX(18px)}
+.auto-next{background:var(--az-l);color:var(--az);border-radius:10px;padding:9px 12px;font-size:12.5px;font-weight:700;margin-bottom:12px}
+.integration{border:1px solid var(--line);border-radius:18px;padding:22px;max-width:900px;margin-top:18px}
+.int-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.int-logo{width:42px;height:42px;border-radius:12px;background:var(--az-l);display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.int-name{font-weight:800;font-size:16px}
+.int-state{color:var(--green);font-size:12.5px;font-weight:700}
+.kv{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;padding:7px 0;border-bottom:1px solid var(--line)}
+.kv:last-of-type{border-bottom:none}
+.kv b{font-weight:700;text-align:right}
+.int-actions{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* футер-аккордеон */
+.f-group{border-bottom:1px solid rgba(255,255,255,.14)}
+.f-group:first-of-type{border-top:1px solid rgba(255,255,255,.14)}
+.f-group summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0;font-size:13.5px;font-weight:700;color:#fff}
+.f-group summary::-webkit-details-marker{display:none}
+.f-group summary::after{content:"+";color:rgba(255,255,255,.6);font-weight:700;font-size:16px;line-height:1}
+.f-group[open] summary::after{content:"−"}
+.f-group[open] summary{color:#fff}
+.f-group summary:hover{color:#D8E9FA}
+.f-list{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:9px}
+.f-list li{font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.45;display:flex;gap:7px}
+.f-list li b{color:#fff;font-weight:700}
+.f-bul{color:rgba(255,255,255,.38);flex:0 0 auto}
+.f-item{background:none;border:none;color:rgba(255,255,255,.78);font-size:12.5px;text-align:left;padding:0;line-height:1.45}
+.f-item:hover{color:#fff;text-decoration:underline;text-underline-offset:3px}
+
+/* подвал */
+.foot{background:var(--ink);color:#fff;margin-top:70px}
+.foot.hide-foot{display:none}
+.foot-inner{max-width:1180px;margin:0 auto;padding:46px 24px 30px;display:grid;grid-template-columns:1.35fr 1fr 1fr 1fr;gap:34px}
+@media(max-width:900px){.foot-inner{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:560px){.foot-inner{grid-template-columns:1fr}}
+.fbrand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.fbrand-mark{width:32px;height:32px}
+.foot p{color:rgba(255,255,255,.66);font-size:13px;margin:12px 0 0;max-width:310px}
+.foot h3{font-size:13px;margin:0 0 12px;color:#fff}
+.foot nav{display:flex;flex-direction:column;gap:8px}
+.foot nav button{border:none;background:none;color:rgba(255,255,255,.75);font-size:13px;text-align:left;padding:0}
+.foot nav button:hover{color:#fff}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.14)}
+.foot-bottom div{max-width:1180px;margin:0 auto;padding:16px 24px;color:rgba(255,255,255,.5);font-size:12px}
+
+/* тост */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);background:var(--ink);color:#fff;border-radius:12px;padding:13px 21px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:min(92vw,640px);text-align:center;z-index:60}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ================= фирменный стиль TravelLine ================= */
+:root{--tl-soft:#ECF1F6;--tl-red:#F02759;--tl-red-d:#D81B4C;--tl-border:#DCE5F0}
+body{font-family:'Open Sans','Segoe UI',Roboto,Arial,sans-serif;font-size:16px;line-height:1.5;color:#2B3D56;background:#fff}
+h1,h2,h3,h4,.page-title,.sec-head h2,.hero h1,.weekly-info h2,.thanks-copy h2,.faq-head-c h2,.sub-copy h2,.auto-band h2,.slide-copy h2,.brand-name,.order-num,.price-new,.bal-value,.dlv-panel h2,.panel h2,.auto-card h3,.int-name,.warn-t,.p-head h2,.cartbox h2,.sso-card h1,.gate-card h1{font-family:'Roboto Condensed','Arial Narrow',Arial,sans-serif;font-weight:700;letter-spacing:0}
+.page-title{font-size:44px;line-height:1.1;margin:34px 0 14px}
+.sec-head h2{font-size:30px;line-height:1.16}
+.hero h1{font-size:clamp(32px,4.4vw,52px);line-height:1.06}
+.weekly-info h2,.thanks-copy h2{font-size:32px}
+.sub-copy h2{font-size:36px;line-height:1.15}
+.auto-band h2,.faq-head-c h2{font-size:32px}
+.brand-name{font-size:19px}
+.brand-name em{color:#227BDD}
+.btn{border-radius:6px;padding:0 24px;height:48px;font-size:15px;font-weight:400;font-family:'Open Sans',Arial,sans-serif}
+.btn-sm{height:38px;padding:0 16px;font-size:13.5px}
+.btn-xs{height:30px;padding:0 12px;font-size:12.5px}
+.btn-az{background:#227BDD}.btn-az:hover{background:#1B66BC}
+.btn-red{background:#F02759;color:#fff}.btn-red:hover{background:#D81B4C}
+.btn-ghost{border:1px solid #227BDD;color:#227BDD;background:#fff}
+.btn-ghost:hover{background:#EAF3FD;border-color:#227BDD;color:#227BDD}
+.btn-soft{border-radius:6px}
+.btn-danger{background:#FDECEF;color:#F02759}.btn-danger:hover{background:#FBDDE4}
+.btn-ghost-w,.btn-block{border-radius:6px}
+.chip-balance,.chip-ghost,.cart-pill,.tab,.bal-chip,.cat-pill,.like,.tagchip,.wk-timer,.save-chip,.famount,.status,.badge,.s-nav,.notice,.order-next,.auto-next,.dlv-note,.sso-provider,.sub-btn,.sub-card,.hero-chip{border-radius:6px}
+.chip-ghost{height:40px;padding:0 16px;display:inline-flex;align-items:center;border-color:#DCE5F0;font-weight:400}
+.chip-balance{padding:0 14px;background:#EAF3FD}
+.cart-pill{height:40px;padding:0 16px;background:#227BDD}
+.tab{height:38px;padding:0 16px;display:inline-flex;align-items:center;background:#ECF1F6;font-weight:400}
+.tab-active{background:#227BDD;color:#fff}
+.bal-chip{padding:5px 10px;border-radius:6px}
+.cat-pill{height:36px;padding:0 14px;display:inline-flex;align-items:center;font-weight:400}
+.slider,.card-tile,.weekly,.thanks,.cartbox,.purchases,.panel,.quick-item,.cat,.faq-card,.sso-card,.gate-card,.order-card,.auto-card,.integration,.step,.warn,.wk-admin,.dlv-card,.dlv-panel,.upload-box,.feedback-card{border-radius:8px}
+.slider{background:#DCE5F0}
+.card-tile{background:#ECF1F6}
+.weekly,.thanks{background:#ECF1F6}
+.subscribe{background:#227BDD}
+.card-img,.quick-thumb,.cthumb,.p-thumb,.thumb-s,.o-thumb,.mini-e,.gal img,.cat img,.pf-preview img{border-radius:6px}
+.sso-card,.order-card,.panel,.gate-card,.purchases,.auto-card,.integration,.step,.quick-item,.faq-card,.cat-chips .cat-pill{border-color:#DCE5F0}
+.sso-card,.order-card{box-shadow:none}
+.quick-item:hover{border-color:#227BDD;box-shadow:0 8px 20px rgba(43,61,86,.08)}
+.badge{border-radius:4px}.s-nav{border-radius:4px}
+.top{border-bottom:1px solid #DCE5F0}
+.nav{font-weight:400}.nav button{font-size:14px;font-weight:400}
+.sec{padding:44px 0 2px}
+.bal-chip .bc-lbl{font-weight:400;letter-spacing:0;font-size:10px}
+
+/* ================= шапка профиля ================= */
+.top{background:#fff;border-bottom:1px solid #E3EBF4;box-shadow:0 1px 0 rgba(43,61,86,.02)}
+.top-inner{min-height:72px;gap:24px}
+.brand{gap:10px}
+.brand-mark{width:32px;height:32px}
+.brand-name{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.nav{gap:22px}
+.nav button{font-size:14px;font-weight:600;color:#42566F;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav button:hover{color:#227BDD;border-bottom-color:#227BDD}
+.top-right{gap:10px}
+.bal-group{display:flex;align-items:stretch;border:1px solid #DCE5F0;border-radius:8px;overflow:hidden;background:#fff}
+.bal-item{padding:6px 14px;display:flex;flex-direction:column;gap:1px;line-height:1.15;min-width:100px}
+.bal-item+.bal-item{border-left:1px solid #DCE5F0}
+.bal-item .lbl{font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#7C8B9E;font-weight:600;white-space:nowrap}
+.bal-item .val{font-family:'Roboto Condensed',Arial,sans-serif;font-size:17px;font-weight:700;color:#2B3D56;font-variant-numeric:tabular-nums}
+.bal-item.gift{background:#F7FAFD}
+.icon-btn{width:40px;height:40px;border-radius:8px;border:1px solid #DCE5F0;background:#fff;color:#42566F;display:grid;place-items:center;position:relative;transition:border-color .15s,color .15s,background .15s;padding:0}
+.icon-btn:hover{border-color:#227BDD;color:#227BDD;background:#F7FBFF}
+.icon-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.cart-count{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#F02759;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;line-height:1}
+.user-ava{width:40px;height:40px;border-radius:50%;overflow:hidden;border:1px solid #DCE5F0;flex:0 0 auto;background:#EDF2F8;display:block}
+.user-ava img{width:100%;height:100%;object-fit:cover}
+.user-chip{display:flex;align-items:center;gap:9px;padding:3px 12px 3px 3px;border:1px solid #DCE5F0;border-radius:999px;background:#fff}
+.user-chip img{width:32px;height:32px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+.user-chip .u-txt{display:flex;flex-direction:column;line-height:1.15}
+.user-chip .u-name{font-size:13px;font-weight:600;color:#2B3D56}
+.user-chip .u-role{font-size:11px;color:#7C8B9E}
+@media(max-width:1220px){.user-chip .u-txt{display:none}.user-chip{padding:3px;border:none}}
+@media(max-width:1040px){.bal-item{padding:6px 10px;min-width:0}}
+@media(max-width:900px){.bal-item .lbl{display:none}.nav{display:none}}
+
+/* ================= правила и начисления ================= */
+.rules-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.rules-list{grid-template-columns:1fr}}
+.rule{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fff;display:flex;gap:12px;align-items:flex-start}
+.rule-n{width:26px;height:26px;border-radius:6px;background:#EAF3FD;color:#227BDD;font-weight:700;font-size:12.5px;display:grid;place-items:center;flex:0 0 auto}
+.rule-t{font-weight:700;font-size:14.5px;line-height:1.3;margin-bottom:4px}
+.rule-d{color:var(--gray);font-size:13px;line-height:1.45}
+.acc-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff}
+.acc-tbl{width:100%;border-collapse:collapse;font-size:14px;min-width:680px}
+.acc-tbl th{text-align:left;background:#F7FAFD;color:#7C8B9E;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:11px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.acc-tbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.acc-tbl tr:last-child td{border-bottom:none}
+.acc-name{font-weight:600;color:var(--ink)}
+.acc-pts{white-space:nowrap;font-weight:700;color:#227BDD;font-variant-numeric:tabular-nums;text-align:right}
+.acc-d{color:var(--gray);font-size:13px;line-height:1.45}
+.thanks-note{display:flex;gap:16px;align-items:flex-start;background:#EAF3FD;border-radius:8px;padding:22px 24px}
+.thanks-note .tn-badge{width:52px;height:52px;border-radius:10px;background:#fff;color:#227BDD;display:grid;place-items:center;font-family:'Roboto Condensed',Arial,sans-serif;font-size:20px;font-weight:700;flex:0 0 auto}
+.thanks-note h3{margin:0 0 6px;font-size:17px;font-weight:700}
+.thanks-note p{margin:0;color:#42566F;font-size:13.5px;line-height:1.5;max-width:760px}
+/* ---- страницы «Правила» и «Как заработать баллы» ---- */
+.pg-hero{position:relative;border-radius:8px;overflow:hidden;background:#ECF1F6;margin:0 0 16px}
+.pg-hero img{display:block;width:100%;height:auto}
+.pg-hero .ph-cap{position:absolute;left:18px;bottom:16px;display:flex;gap:8px;flex-wrap:wrap;max-width:calc(100% - 36px)}
+.ph-chip{background:rgba(43,61,86,.9);color:#fff;border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600;line-height:1.2}
+.pg-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 26px}
+@media(max-width:780px){.pg-facts{grid-template-columns:1fr}}
+.pg-fact{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#fff}
+.pg-fact b{display:block;font-family:'Roboto Condensed','Arial Narrow',Arial,sans-serif;font-size:21px;color:#227BDD;line-height:1.15;font-weight:700}
+.pg-fact span{display:block;color:var(--gray);font-size:12.5px;line-height:1.35;margin-top:3px}
+.rules2{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+@media(max-width:900px){.rules2{grid-template-columns:1fr}}
+.rule2{border:1px solid var(--line);border-radius:8px;background:#fff}
+.rule2 summary{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;cursor:pointer;list-style:none}
+.rule2 summary::-webkit-details-marker{display:none}
+.r2-n{width:23px;height:23px;border-radius:6px;background:#EAF3FD;color:#227BDD;font-size:12px;font-weight:700;display:grid;place-items:center;flex:0 0 auto;margin-top:1px}
+.r2-t{font-size:13.5px;font-weight:700;line-height:1.32;padding-right:12px}
+.r2-c{margin-left:auto;color:#9AAABA;font-size:10px;flex:0 0 auto;transition:transform .15s;margin-top:4px}
+.rule2[open] .r2-c{transform:rotate(180deg)}
+.r2-d{color:var(--gray);font-size:12.5px;line-height:1.5;padding:0 15px 14px 49px}
+.side-note{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:center;border:1px solid var(--line);border-radius:8px;background:#fff;padding:16px;margin:0 0 26px}
+.side-note img{display:block;width:100%;height:148px;object-fit:cover;border-radius:6px}
+.side-note h3{margin:0 0 6px;font-size:18px}
+.side-note p{margin:0;color:var(--gray);font-size:13px;line-height:1.5;max-width:520px}
+@media(max-width:780px){.side-note{grid-template-columns:1fr}.side-note img{height:170px}}
+.acc2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:900px){.acc2{grid-template-columns:1fr}}
+.acc2-card{border:1px solid var(--line);border-radius:8px;background:#fff;padding:16px 16px 4px}
+.acc2-head{display:flex;align-items:center;gap:9px;margin-bottom:4px}
+.acc2-ico{width:30px;height:30px;border-radius:7px;background:#EAF3FD;color:#227BDD;display:grid;place-items:center;flex:0 0 auto}
+.acc2-ico svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.acc2-head h3{margin:0;font-size:15px;font-weight:700}
+.acc2-row{border-top:1px solid #EDF2F8}
+.acc2-row summary{display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer;list-style:none;font-size:13px;line-height:1.35}
+.acc2-row summary::-webkit-details-marker{display:none}
+.acc2-pts{margin-left:auto;background:#EAF3FD;color:#227BDD;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:700;white-space:nowrap;flex:0 0 auto}
+.acc2-note{color:var(--gray);font-size:12px;line-height:1.5;padding:0 0 10px}
+.thx2{display:grid;grid-template-columns:290px 1fr;gap:22px;align-items:center;background:#EAF3FD;border-radius:8px;padding:18px}
+.thx2 img{display:block;width:100%;height:182px;object-fit:cover;border-radius:6px}
+.thx2 h3{margin:0 0 6px;font-size:19px}
+.thx2 p{margin:0 0 8px;color:#42566F;font-size:13px;line-height:1.5}
+.thx2 ul{margin:0;padding-left:18px;color:#42566F;font-size:13px;line-height:1.55}
+@media(max-width:780px){.thx2{grid-template-columns:1fr}.thx2 img{height:170px}}
+.x-link{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:16px 18px;margin:20px 0 0;width:100%;text-align:left;cursor:pointer;font-family:inherit;font-size:14px;color:var(--ink)}
+.x-link:hover{border-color:#227BDD}
+.x-link .xl-i{width:36px;height:36px;border-radius:8px;background:#EAF3FD;color:#227BDD;display:grid;place-items:center;font-weight:700;flex:0 0 auto}
+.x-link .xl-t{display:block}
+.x-link b{display:block;font-size:14px;line-height:1.3}
+.x-link .xl-s{color:var(--gray);font-size:12.5px}
+.x-link .xl-a{margin-left:auto;color:#227BDD;font-weight:700;font-size:16px}
+/* ---- /страницы ---- */
+
+#rules,#accruals,#thanks-rule{scroll-margin-top:88px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <button class="brand" onclick="go(state.auth?'hub':'login')">
+      <svg class="brand-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M14 0 H42 V28 Q42 42 28 42 H0 V14 Q0 0 14 0 Z" fill="#227BDD"/><g fill="#fff"><circle cx="14" cy="13" r="3.3"/><circle cx="21" cy="13" r="3.3"/><circle cx="28" cy="13" r="3.3"/><circle cx="21" cy="21" r="3.3"/><circle cx="28" cy="21" r="3.3"/><circle cx="28" cy="29" r="3.3"/></g></svg>
+      <span class="brand-name">TL <em>Market</em></span>
+    </button>
+    <nav class="nav" id="nav"></nav>
+    <div class="top-right" id="top-right"></div>
+  </div>
+</header>
+<main id="app"></main>
+<footer class="foot" id="foot">
+  <div class="foot-inner">
+    <div>
+      <span class="fbrand"><svg class="fbrand-mark" viewBox="0 0 42 42" aria-hidden="true"><path d="M14 0 H42 V28 Q42 42 28 42 H0 V14 Q0 0 14 0 Z" fill="#227BDD"/><g fill="#fff"><circle cx="14" cy="13" r="3.3"/><circle cx="21" cy="13" r="3.3"/><circle cx="28" cy="13" r="3.3"/><circle cx="21" cy="21" r="3.3"/><circle cx="28" cy="21" r="3.3"/><circle cx="28" cy="29" r="3.3"/></g></svg>TL Market</span>
+      <p>Корпоративный магазин TravelLine: баллы за обучение на портале обучения, помощь коллегам и участие в жизни компании обменивайте на мерч, сертификаты и бонусы.</p>
+    </div>
+    <div><h3>Покупателям</h3><nav style="margin-bottom:16px">
+      <button onclick="goBuyer('catalog')">Каталог товаров</button>
+      <button onclick="goBuyer('weekly')">Товар недели</button>
+      <button onclick="goBuyer('purchases')">Мои покупки</button>
+      <button onclick="goBuyer('subscribe')">Подписка на новинки</button>
+    </nav>
+      <details class="f-group" open>
+        <summary>Доставка</summary>
+        <ul class="f-list">
+          <li><span class="f-bul">•</span><span><b>Самовывоз</b> — каждую пятницу, кабинет 404</span></li>
+          <li><span class="f-bul">•</span><span><b>Доставка на дом</b> — для сотрудников на удалёнке, раз в квартал</span></li>
+          <li><span class="f-bul">•</span><span><b>Уведомление</b> — сообщение в Teams сразу после оформления заказа</span></li>
+          <li><span class="f-bul">•</span><span><b>Хранение</b> — 30 календарных дней, иначе заказ аннулируется и баллы вернутся</span></li>
+          <li><span class="f-bul">→</span><button class="f-item" onclick="go('delivery')">Вся информация о доставке и оплате</button></li>
+        </ul>
+      </details>
+      <details class="f-group">
+        <summary>Ответы на вопросы</summary>
+        <ul class="f-list">
+          <li><span class="f-bul">•</span><button class="f-item" onclick="goBuyer('faq')">Как получить баллы за обучение</button></li>
+          <li><span class="f-bul">•</span><button class="f-item" onclick="goBuyer('faq')">Что происходит с баллами 31 декабря</button></li>
+          <li><span class="f-bul">•</span><button class="f-item" onclick="goBuyer('faq')">Как оформить заказ и получить мерч</button></li>
+          <li><span class="f-bul">•</span><button class="f-item" onclick="goBuyer('faq')">Возврат товара и баллов</button></li>
+          <li><span class="f-bul">•</span><button class="f-item" onclick="goBuyer('thanks')">Как сказать спасибо коллеге</button></li>
+        </ul>
+      </details>
+    </div>
+    <div><h3>Помощь</h3><nav>
+      <button onclick="go('delivery')">Доставка и оплата</button>
+      <button onclick="goBuyer('faq')">Возврат товара</button>
+      <button onclick="goBuyer('faq')">Частые вопросы</button>
+      <button onclick="go('rules')">Правила программы</button>
+      <button onclick="go('accruals')">Как заработать баллы</button>
+      <button onclick="go('hub')">О магазине</button>
+    </nav></div>
+    <div><h3>Контакты</h3><nav>
+      <button onclick="mail()">Оставить пожелание</button>
+      <button onclick="mail()">tlmarket@travelline.ru</button>
+    </nav><p>Выдача заказов — каждую пятницу, кабинет 404.</p></div>
+  </div>
+  <div class="foot-bottom"><div>© 2026 TravelLine · TL Market · демонстрационная страница: фирменные цвета TravelLine, фото товаров сгенерированы для демо<button class="secret-dot" onclick="adminGate()" aria-label="Служебный вход" title="">·</button></div></div>
+</footer>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+
+/* ================= фото ================= */
+var IMG = {
+  hero:'img/hero.webp',
+  weekly:'img/weekly.webp',
+  catMerch:'img/cat-merch.webp',
+  catCert:'img/cat-cert.webp',
+  catBonus:'img/cat-bonus.webp',
+  thanks:'img/thanks.webp',
+  sub:'img/sub.webp',
+  ruleImg:'img/rules-hero.webp',
+  merchImg:'img/rules-merch.webp',
+  accrImg:'img/accruals-hero.webp',
+  thxImg:'img/thanks-people.webp',
+  gal:['img/gal-1.webp','img/gal-2.webp','img/gal-3.webp','img/gal-4.webp','img/gal-5.webp'],
+  av:{ivan:'img/av-ivan.webp',maria:'img/av-maria.webp',anna:'img/av-anna.webp',alexey:'img/av-alexey.webp',olga:'img/av-olga.webp',daria:'img/thanks.webp'}
+};
+
+/* ================= сотрудники ================= */
+var STAFF = [
+  {id:'e1', name:'Иван Петров', av:'ivan', dept:'Разработка', balance:482},
+  {id:'e2', name:'Мария Кузнецова', av:'maria', dept:'Продажи', balance:614},
+  {id:'e3', name:'Алексей Соколов', av:'alexey', dept:'Разработка', balance:158},
+  {id:'e4', name:'Анна Смирнова', av:'anna', dept:'Обучение', balance:930}
+];
+
+/* ================= товары ================= */
+var WEEKLY = {id:'w1', title:'Футболка TravelLine', ph:4, emoji:'👕', price:56, old:80, stock:40,
+  desc:'Базовая футболка из органического хлопка 180 г/м² с фирменным принтом. На этой неделе — специальная цена в баллах: успейте до воскресенья.'};
+var PREV_WEEKLY = [
+  {emoji:'🧥', ph:0, title:'Худи TravelLine', price:120},
+  {emoji:'☕', ph:1, title:'Термокружка TL', price:45},
+  {emoji:'🎁', ph:12, title:'Сертификат OZON на 500 ₽', price:100}
+];
+var PRODUCTS = [
+  {id:'p1', ph:0, title:'Худи TravelLine', emoji:'🧥', price:120, cat:'merch', badge:'ХИТ', stock:12},
+  {id:'p2', ph:1, title:'Термокружка TL', emoji:'☕', price:45, cat:'merch', badge:'ХИТ', stock:30},
+  {id:'p3', ph:2, title:'Городской рюкзак', emoji:'🎒', price:150, cat:'merch', badge:'', stock:8},
+  {id:'p4', ph:3, title:'Шоппер TravelLine', emoji:'👜', price:60, cat:'merch', badge:'', stock:25},
+  {id:'p5', ph:4, title:'Футболка TL', emoji:'👕', price:80, cat:'merch', badge:'ХИТ', stock:40},
+  {id:'p6', ph:5, title:'Свитшот TL', emoji:'🧶', price:110, cat:'merch', badge:'', stock:16},
+  {id:'p7', ph:6, title:'Коврик для мыши TL', emoji:'🖱️', price:95, cat:'merch', badge:'НОВИНКА', stock:15},
+  {id:'p8', ph:7, title:'Керамическая кружка TL', emoji:'🍵', price:50, cat:'merch', badge:'', stock:35},
+  {id:'p9', ph:8, title:'Бейсболка TL', emoji:'🧢', price:70, cat:'merch', badge:'', stock:18},
+  {id:'p10', ph:9, title:'Стикерпак «TL»', emoji:'✨', price:15, cat:'merch', badge:'', stock:100},
+  {id:'p11', ph:10, title:'Ежедневник недатированный', emoji:'📔', price:90, cat:'merch', badge:'НОВИНКА', stock:14},
+  {id:'p12', ph:11, title:'Носки TL', emoji:'🧦', price:20, cat:'merch', badge:'', stock:60},
+  {id:'p13', ph:12, title:'Сертификат OZON на 500 ₽', emoji:'🎁', price:100, cat:'cert', badge:'', stock:50},
+  {id:'p14', ph:13, title:'Сертификат ЛитРес на 500 ₽', emoji:'📚', price:90, cat:'cert', badge:'', stock:50},
+  {id:'p15', ph:14, title:'Сертификат Яндекс Плюс', emoji:'🎧', price:120, cat:'cert', badge:'', stock:40},
+  {id:'p16', ph:15, title:'Сертификат Wildberries на 500 ₽', emoji:'🛍️', price:100, cat:'cert', badge:'', stock:45},
+  {id:'p17', ph:16, title:'Обед с CEO', emoji:'🍽️', price:300, cat:'bonus', badge:'ХИТ', stock:2},
+  {id:'p18', ph:17, title:'Выходной день', emoji:'🌴', price:250, cat:'bonus', badge:'', stock:5},
+  {id:'p19', ph:18, title:'Парковочное место на месяц', emoji:'🅿️', price:200, cat:'bonus', badge:'', stock:3},
+  {id:'p20', ph:19, title:'Место под палатку на летнем ДВП', emoji:'⛺', price:150, cat:'bonus', badge:'НОВИНКА', stock:6}
+];
+var CATS = [['all','Все'],['merch','Мерч'],['cert','Сертификаты'],['bonus','Бонусы']];
+var CATINFO = {
+  merch:{title:'Мерч TravelLine', text:'Худи, футболки, свитшоты и аксессуары с фирменной символикой. В карточке товара — размеры, цвета и остаток на складе.'},
+  cert:{title:'Сертификаты', text:'Электронные подарочные сертификаты OZON, ЛитРес и Яндекс Плюс. Приходят в Teams сразу после оформления заказа.'},
+  bonus:{title:'Бонусы', text:'Впечатления и привилегии: обед с CEO, выходной день, парковочное место и место под палатку на летнем ДВП.'}
+};
+var THANKS = [
+  {from:'Мария Кузнецова', av:'maria', to:'Иван Петров', amount:3, text:'Спасибо за быстрый фикс на проде — клиент счастлив!', tag:'#Инициативность', likes:5, liked:false},
+  {from:'Иван Петров', av:'ivan', to:'Анна Смирнова', amount:2, text:'Анна, спасибо за организацию обучения — было супер полезно и душевно!', tag:'#Клиентоориентированность', likes:3, liked:false},
+  {from:'Анна Смирнова', av:'anna', to:'Мария Кузнецова', amount:3, text:'Мария, спасибо за помощь с демо — спасла презентацию за час до встречи!', tag:'#Инициативность', likes:7, liked:false}
+];
+var FAQ = [
+  ['Как я получаю баллы?','Баллы приходят автоматически: за курсы на портале обучения и 1-го числа каждого месяца всем сотрудникам — по 100 баллов.'],
+  ['Что происходит с баллами в конце года?','31 декабря неиспользованные баллы списываются автоматически. Успейте обменять их на подарки до конца декабря.'],
+  ['Как войти в TL Market?','Вход только по SSO: используется та же корпоративная учётная запись, что и на портале обучения.'],
+  ['Как отменить товар и вернуть баллы?','Напишите администратору на tlmarket@travelline.ru: название товара, номер заказа и ФИО сотрудника.'],
+  ['Можно оплатить товар деньгами?','Нет, в TL Market товары оплачиваются только баллами.'],
+  ['Где и когда выдают заказы?','Самовывоз — каждую пятницу в кабинете 404. После оформления заказа придёт сообщение в Teams.'],
+  ['Что такое «Товар недели»?','Каждую неделю выбираем один товар и снижаем цену в баллах. Успейте до воскресенья!']
+];
+var FLOW = {'Новый':['В сборке','Отменён'],'В сборке':['Готов к выдаче','Отменён'],'Готов к выдаче':['Выдан','Отменён'],'Выдан':[],'Отменён':[]};
+var SCLASS = {'Новый':'s-new','В сборке':'s-pack','Готов к выдаче':'s-ready','Выдан':'s-done','Отменён':'s-cancel'};
+var EMPLOYEES = [['e1','Иван Петров','ivan'],['e2','Мария Кузнецова','maria'],['e3','Алексей Соколов','alexey'],['e4','Анна Смирнова','anna']];
+
+/* ================= автоматизация ================= */
+var AUTO = {
+  monthly: {on:true, amount:100, next:'1 ноября 2026, 09:00', last:''},
+  yearly:  {on:true, keep:0, next:'31 декабря 2026, 23:00', last:''}
+};
+var AUTOLOG = [
+  {date:'1 октября 2026', text:'Ежемесячное начисление: +100 баллов каждому сотруднику'},
+  {date:'31 декабря 2025', text:'Годовое списание: остатки «Моих баллов» обнулены у 124 сотрудников'}
+];
+
+/* ================= портал обучения ================= */
+var LEARN = {
+  connected:true,
+  url:'портал обучения',
+  sso:'/sso/login',
+  lastSync:'20 октября 2026, 18:40',
+  employees:128,
+  accruals:341,
+  queue:[
+    {name:'Ольга Киселёва', dept:'Маркетинг', av:'olga', points:120, course:'Онбординг TravelLine'},
+    {name:'Дарья Волкова', dept:'Поддержка', av:'daria', points:90, course:'Продукты TravelLine'}
+  ],
+  pending:[
+    {empId:'e1', points:30, course:'Сервис для отельеров'},
+    {empId:'e2', points:45, course:'Продажи и переговоры'}
+  ],
+  log:[
+    {date:'20 октября 2026, 18:40', text:'Синхронизация: 128 сотрудников, 341 начисление за курсы'},
+    {date:'20 октября 2026, 18:40', text:'Новые сотрудники: 2, баллы за курсы зачислены'}
+  ]
+};
+
+/* ================= Teams ================= */
+var TEAMS = [
+  {date:'19 октября 2026, 16:20', to:'Алексей Соколов', role:'покупатель', text:'Заказ TL-2026-0003 принят: Термокружка TL × 1. Выдача мерча — в ближайшую пятницу, кабинет 404.'},
+  {date:'19 октября 2026, 16:20', to:'Анна Смирнова', role:'администратор', text:'Новый заказ TL-2026-0003: Термокружка TL × 1, 45 баллов. Сотрудник: Алексей Соколов. Подготовить к выдаче 25 октября.'}
+];
+
+/* ================= мои покупки ================= */
+var PURCHASES = [
+  {date:'16.10.2026', title:'Сертификат OZON на 500 ₽', ph:12, emoji:'🎁', img:'', qty:1, price:100, status:'Выдан'},
+  {date:'14.10.2026', title:'Худи TravelLine', ph:0, emoji:'🧥', img:'', qty:1, price:120, status:'В сборке'},
+  {date:'02.10.2026', title:'Термокружка TL', ph:1, emoji:'☕', img:'', qty:2, price:45, status:'Выдан'},
+  {date:'12.09.2026', title:'Футболка TravelLine', ph:4, emoji:'👕', img:'', qty:1, price:56, status:'Выдан'}
+];
+
+/* ================= состояние ================= */
+var state = {
+  screen:'login', auth:false, loginError:'', slide:0, cat:'all', catPage:'merch', q:'', cart:{}, balance:482, budget:8, orderSeq:3, productSeq:20,
+  ssoStep:0, gateError:false, lastOrder:null, adminTab:'orders',
+  orders:[
+    {num:'TL-2026-0001', emp:'Иван Петров', av:'ivan', items:'Худи TravelLine × 1', total:120, status:'В сборке', date:'14.10.2026', teams:true},
+    {num:'TL-2026-0002', emp:'Мария Кузнецова', av:'maria', items:'Сертификат OZON × 1', total:100, status:'Выдан', date:'16.10.2026', teams:true},
+    {num:'TL-2026-0003', emp:'Алексей Соколов', av:'alexey', items:'Термокружка TL × 1', total:45, status:'Новый', date:'19.10.2026', teams:true}
+  ],
+  warnings:[
+    {title:'Аномальная цикличная активность', text:'Иван Петров и Мария Кузнецова обменялись спасибо 4 раза за 30 дней. Рекомендуем проверить.', date:'14.10.2026'},
+    {title:'Заблокирован обмен спасибо', text:'Перевод Алексей Соколов → Иван Петров отклонён: обратный перевод был менее 48 часов назад.', date:'16.10.2026'}
+  ],
+  log:[]
+};
+var pendingImage = null;
+
+/* ================= утилиты ================= */
+function $(s){return document.querySelector(s)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+var toastTimer=null;
+function toast(msg){var el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(function(){el.classList.remove('show')},4200)}
+function pad(n){return n<10?'0'+n:''+n}
+function findStaff(id){for(var i=0;i<STAFF.length;i++){if(STAFF[i].id===id)return STAFF[i]}return null}
+function syncMyBalance(){if(STAFF[0])state.balance=STAFF[0].balance}
+
+function go(screen){if(screen!=='login'&&!state.auth){screen='login'}state.screen=screen;render();window.scrollTo(0,0)}
+function goBuyer(anchor){if(!state.auth){state.screen='login';render();return}state.screen='buyer';render();if(anchor){var el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}else window.scrollTo(0,0)}
+function goAdmin(tab){if(!state.auth){state.screen='login';render();return}if(tab)state.adminTab=tab;state.screen='admin';render();window.scrollTo(0,0)}
+function goRules(anchor){
+  if(anchor==='accruals'){state.screen='accruals';render();window.scrollTo(0,0);return}
+  state.screen='rules';render();
+  if(anchor){var el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}else window.scrollTo(0,0);
+}
+function mail(){toast('Почта TL Market: tlmarket@travelline.ru')}
+function avSrc(key){return IMG.av[key]||''}
+function phStyle(i){return 'background-position:'+((i%5)*25)+'% '+(Math.floor(i/5)*(100/3)).toFixed(2)+'%'}
+function hasPh(o){return !o.img&&typeof o.ph==='number'}
+function phAttr(o){return hasPh(o)?' style="'+phStyle(o.ph)+'"':''}
+var PHOTO_SRC = 'img/product-sprite.webp';
+function phImg(i){return '<img src="'+PHOTO_SRC+'" alt="" style="left:'+(-(i%5)*100)+'%;top:'+(-Math.floor(i/5)*100)+'%">'}
+
+/* ================= каркас ================= */
+function renderNav(){
+  if(!state.auth){$('#nav').innerHTML='';return}
+  var items=[['Каталог',"goBuyer('catalog')"],['Мои покупки',"goBuyer('purchases')"],['Спасибо',"goBuyer('thanks')"],['Правила',"go('rules')"],['Как заработать баллы',"go('accruals')"]];
+  var html='';
+  for(var i=0;i<items.length;i++){html+='<button onclick="'+items[i][1]+'">'+items[i][0]+'</button>'}
+  $('#nav').innerHTML=html;
+}
+var ICON_CART = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2.2l2.1 10.2h10.4l1.9-7.2H6.1"/></svg>';
+var ICON_OUT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 16l-4-4 4-4"/><path d="M6 12h11"/></svg>';
+function renderTopRight(){
+  if(!state.auth){$('#top-right').innerHTML='';return}
+  var count=0;for(var k in state.cart){count+=state.cart[k]}
+  var html='';
+  if(state.screen==='admin'){
+    html+='<span class="user-chip"><img src="'+avSrc('anna')+'" alt=""><span class="u-txt"><span class="u-name">Анна Смирнова</span><span class="u-role">администратор</span></span></span>';
+    html+='<button class="icon-btn" title="Выйти" aria-label="Выйти" onclick="doLogout()">'+ICON_OUT+'</button>';
+  }else{
+    html+='<div class="bal-group">'+
+      '<div class="bal-item" title="Мои баллы"><span class="lbl">Мои баллы</span><span class="val">'+state.balance+'</span></div>'+
+      '<div class="bal-item gift" title="Могу подарить"><span class="lbl">Могу подарить</span><span class="val">'+state.budget+'</span></div>'+
+    '</div>';
+    html+='<span class="user-ava" title="Иван Петров · покупатель"><img src="'+avSrc('ivan')+'" alt="Иван Петров"></span>';
+    html+='<button class="icon-btn" title="Корзина" aria-label="Корзина" onclick="goBuyer(\'cartbox\')">'+ICON_CART+(count?'<span class="cart-count">'+count+'</span>':'')+'</button>';
+    html+='<button class="icon-btn" title="Выйти" aria-label="Выйти" onclick="doLogout()">'+ICON_OUT+'</button>';
+  }
+  $('#top-right').innerHTML=html;
+}
+function render(){
+  renderNav();renderTopRight();
+  var app=$('#app');
+  if(state.screen==='login')app.innerHTML=loginHtml();
+  else if(state.screen==='hub')app.innerHTML=hubHtml();
+  else if(state.screen==='sso')app.innerHTML=ssoHtml();
+  else if(state.screen==='buyer')app.innerHTML=buyerHtml();
+  else if(state.screen==='cat')app.innerHTML=categoryHtml();
+  else if(state.screen==='rules')app.innerHTML=rulesHtml();
+  else if(state.screen==='accruals')app.innerHTML=accrualsPageHtml();
+  else if(state.screen==='order')app.innerHTML=orderHtml();
+  else if(state.screen==='delivery')app.innerHTML=deliveryHtml();
+  else if(state.screen==='admingate')app.innerHTML=gateHtml();
+  else app.innerHTML=adminHtml();
+  tickCountdown();
+  var ft=document.getElementById('foot');
+  if(ft&&ft.classList){if(state.auth)ft.classList.remove('hide-foot');else ft.classList.add('hide-foot')}
+}
+
+/* ================= слайдер ================= */
+var SLIDES = [
+  {img:'img/slide-1.webp', alt:'Коллеги в синих худи TravelLine в офисе'},
+  {img:'img/slide-2.webp', alt:'Три сотрудника в синих футболках TravelLine у офиса'},
+  {img:'img/slide-3.webp', alt:'Сотрудница в синей футболке TravelLine с кружкой'},
+  {img:'img/slide-4.webp', alt:'Выдача мерча: сотрудница в худи передаёт заказ коллеге'}
+];
+function slideMarkup(){
+  var s = SLIDES[state.slide];
+  var dots = '';
+  for(var i=0;i<SLIDES.length;i++){
+    dots += '<button class="s-dot'+(i===state.slide?' on':'')+'" onclick="slideGo('+i+')" aria-label="Фото '+(i+1)+'"></button>';
+  }
+  return '<div class="slide">'+
+      '<img class="slide-img" src="'+s.img+'" alt="'+esc(s.alt)+'">'+
+      '<div class="slide-grad"></div>'+
+    '</div>'+
+    '<button class="s-nav s-prev" onclick="slideMove(-1)" aria-label="Предыдущее фото">‹</button>'+
+    '<button class="s-nav s-next" onclick="slideMove(1)" aria-label="Следующее фото">›</button>'+
+    '<div class="s-dots">'+dots+'</div>';
+}
+function sliderHtml(){ return '<div class="slider" id="slider">'+slideMarkup()+'</div>' }
+function slideGo(i){
+  var n = SLIDES.length;
+  state.slide = ((i%n)+n)%n;
+  var el = document.getElementById('slider');
+  if(el) el.innerHTML = slideMarkup();
+}
+function slideMove(d){ slideGo(state.slide + d) }
+
+/* ================= главная ================= */
+function hubHtml(){
+  return '<div class="wrap">'+
+    '<section class="hero">'+
+      '<div class="hero-copy">'+
+        '<h1>Баллы, которые хочется <span>тратить</span></h1>'+
+        '<p>TL Market — магазин подарков TravelLine. Баллы начисляются автоматически за обучение и каждый месяц; тратьте их на мерч, сертификаты и бонусы.</p>'+
+        '<div class="hero-actions">'+
+          '<button class="btn btn-az" onclick="goBuyer(\'catalog\')">Смотреть каталог</button>'+
+          '<button class="btn btn-ghost" onclick="goBuyer(\'purchases\')">Мои покупки</button>'+
+        '</div>'+
+      '</div>'+
+      '<div class="hero-photo"><img src="'+IMG.hero+'" alt="Команда TravelLine">'+
+        '<span class="hero-chip hc1">★ '+state.balance+' балла</span>'+
+        '<span class="hero-chip hc2">Вход по одной учётной записи</span>'+
+      '</div>'+
+    '</section>'+
+    '<div class="steps">'+
+      stepCard('1','Входите по SSO','Одна корпоративная учётная запись — та же, что на портале обучения. Отдельный пароль не нужен.')+
+      stepCard('2','Баллы приходят сами','За курсы на портале обучения и 1-го числа каждого месяца всем сотрудникам. Ничего не нужно запрашивать.')+
+      stepCard('3','Обмениваете на подарки','Мерч, сертификаты и бонусы. После заказа сообщение о выдаче придёт в Teams.')+
+    '</div>'+
+    '<section class="auto-band">'+
+      '<div>'+
+        '<h2>Баллы начисляются без вашего участия</h2>'+
+        '<p>TL Market связан с порталом обучения и кадровыми данными: новые сотрудники и баллы за курсы появляются в магазине автоматически.</p>'+
+      '</div>'+
+      '<div class="auto-list">'+
+        '<div class="auto-item"><span class="ic">🎓</span><span><b>Баллы из портала обучения</b><span>Пройденный курс — баллы в тот же день, новые сотрудники — сразу в базе</span></span></div>'+
+        '<div class="auto-item"><span class="ic">📅</span><span><b>+100 баллов 1-го числа</b><span>Каждому сотруднику каждый месяц, без заявок и согласований</span></span></div>'+
+        '<div class="auto-item"><span class="ic">⏳</span><span><b>Списание 31 декабря</b><span>Неиспользованные баллы сгорают — успейте выбрать подарки</span></span></div>'+
+      '</div>'+
+    '</section>'+
+  '</div>';
+}
+function stepCard(n,t,p){
+  return '<div class="step"><div class="step-n">'+n+'</div><h3>'+t+'</h3><p>'+p+'</p></div>';
+}
+
+/* ================= вход ================= */
+function loginHtml(){
+  return '<div class="sso-wrap"><div class="sso-card">'+
+    '<div class="sso-brand"><svg width="34" height="34" viewBox="0 0 42 42"><path d="M14 0 H42 V28 Q42 42 28 42 H0 V14 Q0 0 14 0 Z" fill="#227BDD"/><g fill="#fff"><circle cx="14" cy="13" r="3.3"/><circle cx="21" cy="13" r="3.3"/><circle cx="28" cy="13" r="3.3"/><circle cx="21" cy="21" r="3.3"/><circle cx="28" cy="21" r="3.3"/><circle cx="28" cy="29" r="3.3"/></g></svg><span class="brand-name">TL <em>Market</em></span></div>'+
+    '<h1>Вход в TL Market</h1>'+
+    '<p class="sso-sub">Введите корпоративные логин и пароль — те же, что для рабочих сервисов TravelLine.</p>'+
+    '<label class="flabel">Логин</label>'+
+    '<input class="inp" id="login-name" autocomplete="username" placeholder="ivan.petrov@travelline.ru">'+
+    '<label class="flabel">Пароль</label>'+
+    '<input class="inp" id="login-pass" type="password" autocomplete="current-password" placeholder="Пароль" onkeydown="loginKey(event)">'+
+    (state.loginError?'<div class="gate-err">'+esc(state.loginError)+'</div>':'')+
+    '<div style="height:18px"></div>'+
+    '<button class="btn btn-az btn-block" onclick="doLogin()">Войти</button>'+
+    '<p class="gate-hint">Демо-доступ: ivan.petrov@travelline.ru · пароль tl2026</p>'+
+  '</div></div>';
+}
+function loginKey(e){if(e&&e.key==='Enter'){doLogin()}}
+function doLogin(){
+  var l=document.getElementById('login-name'), p=document.getElementById('login-pass');
+  var lv=l&&l.value?String(l.value).trim():'';
+  var pv=p&&p.value?String(p.value):'';
+  if(!lv||!pv){state.loginError='Введите логин и пароль';render();return}
+  if(lv.toLowerCase()==='ivan.petrov@travelline.ru'&&pv==='tl2026'){
+    state.loginError='';state.auth=true;state.screen='buyer';
+    toast('Вы вошли как Иван Петров');render();window.scrollTo(0,0);return;
+  }
+  state.loginError='Неверный логин или пароль';render();
+}
+function doLogout(){state.auth=false;state.loginError='';state.screen='login';state.cart={};render();window.scrollTo(0,0)}
+
+/* ================= SSO ================= */
+function ssoHtml(){
+  if(state.ssoStep===1){
+    return '<div class="sso-wrap"><div class="sso-card">'+
+      '<div class="sso-brand"><svg width="34" height="34" viewBox="0 0 42 42"><path d="M14 0 H42 V28 Q42 42 28 42 H0 V14 Q0 0 14 0 Z" fill="#227BDD"/><g fill="#fff"><circle cx="14" cy="13" r="3.3"/><circle cx="21" cy="13" r="3.3"/><circle cx="28" cy="13" r="3.3"/><circle cx="21" cy="21" r="3.3"/><circle cx="28" cy="21" r="3.3"/><circle cx="28" cy="29" r="3.3"/></g></svg><span class="brand-name">TL <em>Market</em></span></div>'+
+      '<h1>Подтвердите учётную запись</h1>'+
+      '<p class="sso-sub">Корпоративный SSO вернул ваш профиль</p>'+
+      '<div class="sso-profile"><img src="'+avSrc('ivan')+'" alt=""><div><div class="sso-name">Иван Петров</div><div class="sso-meta">Разработка · ivan.petrov@travelline.ru</div></div></div>'+
+      '<button class="btn btn-az btn-block" onclick="ssoDone()">Это я — войти</button>'+
+      '<button class="sso-alt" onclick="ssoReset()">Войти под другой учётной записью</button>'+
+      '<div class="sso-provider">SSO · ADFS TravelLine</div>'+
+    '</div></div>';
+  }
+  return '<div class="sso-wrap"><div class="sso-card">'+
+    '<div class="sso-brand"><svg width="34" height="34" viewBox="0 0 42 42"><path d="M14 0 H42 V28 Q42 42 28 42 H0 V14 Q0 0 14 0 Z" fill="#227BDD"/><g fill="#fff"><circle cx="14" cy="13" r="3.3"/><circle cx="21" cy="13" r="3.3"/><circle cx="28" cy="13" r="3.3"/><circle cx="21" cy="21" r="3.3"/><circle cx="28" cy="21" r="3.3"/><circle cx="28" cy="29" r="3.3"/></g></svg><span class="brand-name">TL <em>Market</em></span></div>'+
+    '<h1>Единый вход TravelLine</h1>'+
+    '<p class="sso-sub">Используйте корпоративную учётную запись — ту же, что на портале обучения</p>'+
+    '<label class="flabel">Корпоративная почта</label>'+
+    '<input class="inp" id="sso-email" value="ivan.petrov@travelline.ru">'+
+    '<div style="height:16px"></div>'+
+    '<button class="btn btn-az btn-block" onclick="ssoStep()">Продолжить</button>'+
+    '<div class="sso-provider">Вход только через SSO · пароли в TL Market не хранятся</div>'+
+  '</div></div>';
+}
+function ssoStep(){state.ssoStep=1;render()}
+function ssoReset(){state.ssoStep=0;render()}
+function ssoDone(){state.ssoStep=0;state.screen='buyer';toast('Вы вошли как Иван Петров');render()}
+
+/* ================= служебный вход ================= */
+function adminGate(){state.screen='admingate';state.gateError=false;render();window.scrollTo(0,0)}
+function gateHtml(){
+  return '<div class="gate-wrap"><div class="gate-card">'+
+    '<h1>Служебный вход</h1>'+
+    '<p class="gate-sub">Доступ для администраторов TL Market</p>'+
+    '<label class="flabel">Код доступа</label>'+
+    '<input class="inp" id="gate-code" type="password" placeholder="Введите код доступа">'+
+    (state.gateError?'<div class="gate-err">Неверный код доступа</div>':'')+
+    '<div style="height:16px"></div>'+
+    '<button class="btn btn-az btn-block" onclick="gateLogin()">Войти</button>'+
+    '<p class="gate-hint">Демо-код: TL-ADMIN</p>'+
+    '<button class="gate-back" onclick="go(\'hub\')">Вернуться в магазин</button>'+
+  '</div></div>';
+}
+function gateLogin(){
+  var el=$('#gate-code');
+  var v=el?el.value.trim():'';
+  if(v==='TL-ADMIN'){state.gateError=false;state.auth=true;state.adminTab='orders';state.screen='admin';toast('Служебный доступ открыт');render()}
+  else{state.gateError=true;render()}
+}
+
+/* ================= экран заказа ================= */
+function orderHtml(){
+  var o=state.lastOrder;
+  if(!o)return '<div class="wrap"><p class="empty">Заказ не найден</p></div>';
+  var lines='';
+  for(var i=0;i<o.lines.length;i++){
+    var l=o.lines[i];
+    var oimg=l.img?'<img src="'+l.img+'" alt="">':(hasPh(l)?'':(l.emoji||''));
+    lines+='<div class="order-line"><span class="o-line"><span class="o-thumb'+(hasPh(l)?' ph':'')+'">'+(hasPh(l)?phImg(l.ph):oimg)+'</span>'+esc(l.title)+' × '+l.qty+'</span><b>'+(l.price*l.qty)+' баллов</b></div>';
+  }
+  var cards='';
+  for(var t=0;t<o.teams.length;t++){
+    var n=o.teams[t];
+    cards+='<div class="teams-card"><div class="teams-to">Кому: '+esc(n.to)+' · '+esc(n.role)+'</div>'+
+      '<div class="teams-text">'+esc(n.text)+'</div>'+
+      '<div class="teams-status">✓ Доставлено в Teams</div></div>';
+  }
+  return '<div class="order-wrap"><div class="order-card">'+
+    '<div class="order-head"><span class="order-num">'+esc(o.num)+'</span><span class="status s-new">Новый</span></div>'+
+    '<p class="order-sub">'+esc(o.date)+' · оформлен по SSO-учётной записи</p>'+
+    lines+
+    '<div class="order-total"><span>Итого</span><span>'+o.total+' баллов</span></div>'+
+    '<div class="order-next">Выдача мерча — каждую пятницу, кабинет 404. Заберите заказ в течение 30 календарных дней, иначе он отменится, а баллы вернутся.</div>'+
+    '<div class="teams-block"><div class="teams-title"><span class="teams-logo">T</span>Сообщения отправлены в Teams</div>'+cards+'</div>'+
+    '<div class="order-actions"><button class="btn btn-az" onclick="goBuyer(\'catalog\')">Вернуться в каталог</button><button class="btn btn-ghost" onclick="goBuyer(\'cartbox\')">Моя корзина</button></div>'+
+  '</div></div>';
+}
+
+/* ================= правила ================= */
+var RULES = [
+  ['Сгорание баллов в конце каждого года','Неиспользованные баллы сгорают в конце календарного года.'],
+  ['Баллы начисляются только за утверждённые активности','Баллы начисляются только за активности, включённые в утверждённые правила TL Market и указанные в разделе «За что начисляют баллы».'],
+  ['Магазин предназначен для сотрудников TravelLine','Пользоваться TL Market могут сотрудники ТЛС и ТЛГ.'],
+  ['Мерч выдаётся по установленному графику','Заказы выдаются каждую пятницу в кабинете 404.'],
+  ['Баллы нельзя обменять на рубли','Баллы используются только для покупки товаров и сертификатов, представленных в TL Market.'],
+  ['Баллы нельзя передавать другим сотрудникам','Баллы персональные и привязаны к учётной записи сотрудника. Передача баллов другому сотруднику не предусмотрена.'],
+  ['Заказ необходимо забрать в установленный срок','После уведомления сотрудник забирает заказ в течение 30 календарных дней. После этого заказ аннулируется, а баллы возвращаются на баланс.'],
+  ['Лимитированные позиции доступны в ограниченном количестве','Количество лимитированных товаров ограничено. После окончания партии повторная закупка такой позиции не гарантируется.'],
+  ['Баллы начисляются после подтверждения активности','Баллы начисляются после подтверждения выполнения активности ответственным сотрудником или подразделением.'],
+  ['Срок зачисления баллов','Баллы зачисляются в течение 5 рабочих дней с момента подтверждения активности.'],
+  ['При увольнении или переходе в компанию-партнёр баллы аннулируются','Неиспользованный баланс закрывается в дату увольнения сотрудника.'],
+  ['Если баллов не хватает, доплатить деньгами нельзя','Покупка возможна только при наличии на балансе достаточного количества баллов. Доплата деньгами не предусмотрена.'],
+  ['Для отдельных товаров и сертификатов может действовать лимит на покупку','Для отдельных позиций может быть установлено ограничение на количество покупок одним сотрудником в течение календарного года. Информация о лимите указывается в описании товара.'],
+  ['Отмена заказа до получения','Если сотрудник отменяет заказ до его получения, баллы возвращаются на баланс.'],
+  ['Возврат товара','После получения товара возврат и обмен не производятся. Перед получением сотрудник может проверить товар.']
+];
+var ACCRUALS = [
+  ['Скажи Спасибо','5','Благодарность коллегам: 5 баллов в месяц, сгорают в конце месяца.'],
+  ['Прохождение продуктовых курсов','1–5','10–20 минут — 1 балл, около 40 минут — 2 балла, около часа — 3 балла, более объёмные программы — до 5 баллов.'],
+  ['Участие в разработке обучающего контента','до 15','Зависит от вклада: экспертная консультация, подготовка материала, разработка задания, целый курс.'],
+  ['Аттестация по компонентам','5','За успешную сдачу с первой попытки.'],
+  ['Адаптационный план в TravelLine Learn','3','За полное прохождение адаптационного плана новым сотрудником.'],
+  ['Участие в обучающем конкурсе или челлендже','до 5','Для действующих сотрудников.'],
+  ['Наставничество','15','Наставнику после того, как новый сотрудник проработал в компании 3 месяца.'],
+  ['Выступление на внутреннем мероприятии','10','Митап, конференция, встреча без галстуков, Open Talk или другое согласованное мероприятие.'],
+  ['Выступление на внешнем мероприятии','15','Внешняя конференция, митап или другое профессиональное мероприятие.'],
+  ['Проверка лабораторных работ','5','За участие в проверке лабораторных работ студентов за 1 месяц.'],
+  ['Чтение лекций','5','За проведение лекций для студентов за 1 месяц.'],
+  ['Проверка технических заданий кандидатов в TravelLine','5','По запросу ответственного руководителя за 1 месяц.'],
+  ['Публикация о жизни TravelLine в соцсетях','7','Пост с фото или видео о жизни компании, мероприятиях или командных достижениях. Для VK страница должна быть открытой и отмечать группу @TL_people, в TL Лайв отметка не требуется. Дату публикации согласуйте заранее.'],
+  ['Участие в спортивных активностях','до 10','Участник спортивной команды компании — 7 баллов независимо от результата, болельщик в личное время — 3 балла.'],
+  ['Проведение офисных экскурсий','3','Экскурсия по офису для отельеров, школьников или студентов за 1 месяц.']
+];
+var ACC_GROUPS = [
+  {t:'Обучение', ic:'book', ids:[1,2,3,4,5]},
+  {t:'Экспертиза', ic:'mic', ids:[10,9,11,7,8]},
+  {t:'Команда', ic:'users', ids:[6,0]},
+  {t:'Жизнь компании', ic:'spark', ids:[12,13,14]}
+];
+var ACC_ICONS = {
+  book:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5V5.5"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>',
+  users:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><path d="M16 5.2A3.2 3.2 0 0 1 16 11"/><path d="M18 14.4c2.1.7 3.5 2.4 3.5 5.6"/></svg>',
+  spark:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.1 5.4 5.4 1.6-5.4 2.1L12 17.5 9.9 12.1 4.5 10.5l5.4-1.6z"/></svg>'
+};
+function rulesRow(k,v){ return '<div class="dlv-pay"><span>'+k+'</span><b>'+v+'</b></div>' }
+function rulesList2Html(){
+  var h='';
+  for(var i=0;i<RULES.length;i++){
+    h+='<details class="rule2"><summary><span class="r2-n">'+(i+1)+'</span><span class="r2-t">'+RULES[i][0]+'</span><span class="r2-c">▼</span></summary>'+
+       '<div class="r2-d">'+RULES[i][1]+'</div></details>';
+  }
+  return '<div class="rules2">'+h+'</div>';
+}
+function accrualGroupsHtml(){
+  var h='';
+  for(var g=0;g<ACC_GROUPS.length;g++){
+    var gr=ACC_GROUPS[g], rows='';
+    for(var j=0;j<gr.ids.length;j++){
+      var a=ACCRUALS[gr.ids[j]];
+      rows+='<details class="acc2-row"><summary><span class="acc2-name">'+a[0]+'</span><span class="acc2-pts">'+a[1]+'</span></summary>'+
+            '<div class="acc2-note">'+a[2]+'</div></details>';
+    }
+    h+='<div class="acc2-card"><div class="acc2-head"><span class="acc2-ico">'+ACC_ICONS[gr.ic]+'</span><h3>'+gr.t+'</h3></div>'+rows+'</div>';
+  }
+  return '<div class="acc2">'+h+'</div>';
+}
+function thanksRuleHtml(){
+  return '<div class="thx2"><img src="'+IMG.thxImg+'" alt="Коллеги благодарят друг друга">'+
+    '<div><h3>Скажи Спасибо — 5 баллов каждый месяц</h3>'+
+    '<p>Отдельный баланс на благодарности коллегам: каждый месяц начисляется 5 баллов.</p>'+
+    '<ul><li>Нельзя потратить на себя</li><li>Неиспользованные сгорают в конце месяца</li><li>В начале следующего месяца — новый баланс</li></ul>'+
+    '</div></div>';
+}
+function rulesFaq(){
+  var q=[['Можно ли копить баллы на крупный подарок?','Да, баллы копятся в течение года. Но 31 декабря остаток списывается, поэтому крупную покупку лучше планировать до конца декабря.'],
+    ['Что будет, если не забрать заказ?','Заказ аннулируется через 30 календарных дней после уведомления, а баллы вернутся на баланс «Мои баллы».'],
+    ['Можно ли оплатить часть баллами, а часть деньгами?','Нет. В TL Market оплата только баллами, доплата деньгами не предусмотрена.'],
+    ['Кто видит мои благодарности?','Все сотрудники: карточка попадает в общую ленту «Спасибо» с тегом ценности и лайками.']];
+  var h='';
+  for(var i=0;i<q.length;i++){h+='<details class="faq-card"><summary>'+q[i][0]+'</summary><p>'+q[i][1]+'</p></details>'}
+  return '<div class="faq-center">'+h+'</div>';
+}
+function rulesHtml(){
+  return '<div class="wrap">'+
+    '<button class="back-link" onclick="goBuyer()">← В магазин</button>'+
+    '<h1 class="page-title">Правила программы</h1>'+
+    '<p class="page-sub">Баллы начисляют за подтверждённые активности, тратят только в TL Market, остаток сгорает 31 декабря.</p>'+
+    '<div class="pg-hero"><img src="'+IMG.ruleImg+'" alt="Выдача заказа в кабинете 404">'+
+      '<div class="ph-cap"><span class="ph-chip">15 правил</span><span class="ph-chip">Выдача — пятница, каб. 404</span><span class="ph-chip">Хранение 30 дней</span></div></div>'+
+    '<div class="pg-facts">'+
+      '<div class="pg-fact"><b>31 декабря</b><span>сгорает остаток баллов</span></div>'+
+      '<div class="pg-fact"><b>Только баллы</b><span>доплата деньгами не предусмотрена</span></div>'+
+      '<div class="pg-fact"><b>30 дней</b><span>на получение заказа</span></div>'+
+    '</div>'+
+    '<div class="sec" id="rules"><div class="sec-head"><h2>Правила TL Market</h2><span class="sec-link">Нажмите на правило, чтобы раскрыть</span></div>'+rulesList2Html()+'</div>'+
+    '<div class="side-note"><img src="'+IMG.merchImg+'" alt="Мерч TL Market">'+
+      '<div><h3>На что тратятся баллы</h3><p>Мерч с брендом TravelLine, сертификаты OZON, ЛитРес и Яндекс Плюс, бонусы вроде обеда с CEO или выходного.</p></div></div>'+
+    '<button class="x-link" onclick="go(\'accruals\')"><span class="xl-i">+</span>'+
+      '<span class="xl-t"><b>Как заработать баллы</b><span class="xl-s">15 активностей — от 1 до 15 баллов</span></span>'+
+      '<span class="xl-a">→</span></button>'+
+    '<div class="dlv-faq" style="margin-top:28px"><div class="sec-head"><h2>Вопросы о правилах</h2></div>'+rulesFaq()+'</div>'+
+  '</div>';
+}
+function accrualsPageHtml(){
+  return '<div class="wrap">'+
+    '<button class="back-link" onclick="go(\'rules\')">← Правила программы</button>'+
+    '<h1 class="page-title">Как заработать баллы</h1>'+
+    '<p class="page-sub">15 активностей — от 1 до 15 баллов. Баллы приходят в течение 5 рабочих дней после подтверждения.</p>'+
+    '<div class="pg-hero"><img src="'+IMG.accrImg+'" alt="Выступление на внутреннем мероприятии">'+
+      '<div class="ph-cap"><span class="ph-chip">15 активностей</span><span class="ph-chip">1–15 баллов</span><span class="ph-chip">5 рабочих дней</span></div></div>'+
+    '<div class="pg-facts">'+
+      '<div class="pg-fact"><b>до 15</b><span>баллов за одну активность</span></div>'+
+      '<div class="pg-fact"><b>5 баллов</b><span>ежемесячно на «Спасибо» коллегам</span></div>'+
+      '<div class="pg-fact"><b>5 дней</b><span>на зачисление после подтверждения</span></div>'+
+    '</div>'+
+    '<div class="sec"><div class="sec-head"><h2>За что начисляют</h2><span class="sec-link">Нажмите на активность, чтобы раскрыть условия</span></div>'+accrualGroupsHtml()+'</div>'+
+    '<div class="sec" id="thanks-rule"><div class="sec-head"><h2>Скажи Спасибо</h2></div>'+thanksRuleHtml()+'</div>'+
+    '<button class="x-link" onclick="goBuyer(\'catalog\')"><span class="xl-i">★</span>'+
+      '<span class="xl-t"><b>Потратить баллы</b><span class="xl-s">20 товаров в каталоге TL Market</span></span>'+
+      '<span class="xl-a">→</span></button>'+
+  '</div>';
+}
+
+/* ================= доставка и оплата ================= */
+function deliveryCard(ico,h,tag,text,items){
+  var li='';
+  for(var i=0;i<items.length;i++){li+='<li><span class="dlv-dot">•</span><span>'+items[i]+'</span></li>'}
+  return '<div class="dlv-card"><div class="dlv-top"><span class="dlv-ico">'+ico+'</span><span class="dlv-h">'+h+'</span></div>'+
+    (tag?'<span class="dlv-tag">'+tag+'</span>':'')+
+    '<p class="dlv-p">'+text+'</p>'+
+    '<ul class="dlv-list">'+li+'</ul></div>';
+}
+function dlvFaq(){
+  var q=[['Когда можно забрать заказ?','Каждую пятницу в кабинете 404. Когда заказ собран, в «Моих покупках» появляется статус «Готов к выдаче», а в Teams приходит уведомление.'],
+    ['Что будет, если не забрать заказ?','Заказ отменится в конце месяца, а баллы автоматически вернутся на баланс «Мои баллы».'],
+    ['Может ли коллега получить заказ за меня?','Да, назовите администратору номер заказа — TL-2026-XXXX.'],
+    ['Можно ли оплатить часть баллами, а часть деньгами?','Нет, в TL Market заказ оплачивается только баллами.'],
+    ['Куда придёт уведомление о выдаче?','В Microsoft Teams — покупателю и администратору. Копия уходит на tlmarket@travelline.ru.']];
+  var h='';
+  for(var i=0;i<q.length;i++){h+='<details class="faq-card"><summary>'+q[i][0]+'</summary><p>'+q[i][1]+'</p></details>'}
+  return '<div class="faq-center">'+h+'</div>';
+}
+function deliveryHtml(){
+  return '<div class="wrap">'+
+    '<button class="back-link" onclick="goBuyer(\'catalog\')">← Вернуться в каталог</button>'+
+    '<h1 class="page-title">Доставка и оплата</h1>'+
+    '<p class="page-sub">Доставка и выдача в офисе — бесплатно, стоимость уже включена в баллы. Оплатить заказ можно только баллами TL Market.</p>'+
+    '<div class="dlv-grid">'+
+      deliveryCard('1','Самовывоз в офисе','каждую пятницу','Заказ ждёте вы или коллега в кабинете 404. Когда заказ собран, в Teams приходит сообщение.',['Выдача с 10:00 до 19:00','Забрать может коллега — по номеру заказа','Хранится 30 календарных дней'])+deliveryCard('2','Курьером на дом','Для сотрудников на удалёнке','Отправляем раз в квартал, ближайшая отправка — 15 января. Курьер позвонит за час до приезда.',['Бесплатно по Москве и области','Срок — 2–3 рабочих дня','Адрес укажете при оформлении заказа'])+deliveryCard('3','В другой город','СДЭК или Почта России','Отправляем после сборки заказа, трек-номер придёт в Teams.',['Срок — 3–7 рабочих дней','Упаковка — фирменная коробка TL Market','Отправка за счёт компании'])+'</div>'+
+    '<div class="dlv-two">'+
+      '<div class="dlv-panel"><h2>Оплата</h2>'+
+        '<div class="dlv-pay"><span>Способ оплаты</span><b>только баллы TL Market</b></div>'+
+        '<div class="dlv-pay"><span>Когда списываются</span><b>при оформлении заказа</b></div>'+
+        '<div class="dlv-pay"><span>Возврат при отмене</span><b>в тот же день</b></div>'+
+        '<div class="dlv-pay"><span>Доплата деньгами</span><b>нет</b></div>'+
+        '<div class="dlv-note">Баллы списываются с баланса «Мои баллы». Если заказ отменили или вы не забрали его до конца месяца, баллы вернутся автоматически.</div>'+
+      '</div>'+
+      '<div class="dlv-panel"><h2>Сроки</h2>'+
+        '<div class="dlv-pay"><span>Сборка заказа</span><b>1–3 рабочих дня</b></div>'+
+        '<div class="dlv-pay"><span>Выдача в офисе</span><b>пятница, 10:00–19:00, каб. 404</b></div>'+
+        '<div class="dlv-pay"><span>Курьер</span><b>2–3 дня после отправки</b></div>'+
+        '<div class="dlv-pay"><span>Хранение</span><b>до конца месяца</b></div>'+
+        '<div class="dlv-note">Статус заказа виден в «Моих покупках»: Новый → В сборке → Готов к выдаче → Выдан. На каждый шаг приходит уведомление в Teams.</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="dlv-faq"><div class="sec-head"><h2>Вопросы о доставке</h2></div>'+dlvFaq()+'</div>'+
+  '</div>';
+}
+
+/* ================= покупатель ================= */
+function findProduct(id){
+  if(id===WEEKLY.id)return WEEKLY;
+  for(var i=0;i<PRODUCTS.length;i++){if(PRODUCTS[i].id===id)return PRODUCTS[i]}
+  return null;
+}
+function badgeHtml(b){
+  if(!b)return '';
+  var cls=b==='ХИТ'?'b-hit':'b-new';
+  return '<span class="badge '+cls+'">'+b+'</span>';
+}
+function productCard(p){
+  var poor=p.price>state.balance;
+  var out=p.stock<=0;
+  var label='Купить';
+  if(out)label='Нет в наличии';
+  else if(poor)label='Не хватает баллов';
+  var tile;
+  var btag = p.cat==='merch'?'<span class="brand-tag">TL</span>':'';
+  if(p.img)tile='<div class="card-tile">'+badgeHtml(p.badge)+btag+'<img class="card-img" src="'+p.img+'" alt="'+esc(p.title)+'"></div>';
+  else if(hasPh(p))tile='<div class="card-tile ph">'+phImg(p.ph)+badgeHtml(p.badge)+btag+'</div>';
+  else tile='<div class="card-tile">'+badgeHtml(p.badge)+'<span class="emoji">'+p.emoji+'</span></div>';
+  return '<div class="card">'+
+    tile+
+    '<div class="card-name">'+esc(p.title)+'</div>'+
+    (p.desc?'<div class="card-desc">'+esc(p.desc)+'</div>':'')+
+    '<div class="card-bottom"><div class="card-price">'+p.price+' <small>баллов</small></div>'+
+    '<button class="btn btn-az btn-sm"'+(out||poor?' disabled':'')+' onclick="addToCart(\''+p.id+'\')">'+label+'</button></div>'+
+  '</div>';
+}
+function weeklyHtml(){
+  var w=WEEKLY;
+  var save=w.old-w.price;
+  var prev='';
+  for(var i=0;i<PREV_WEEKLY.length;i++){
+    var p=PREV_WEEKLY[i];
+    prev+='<div class="mini-item"><span class="mini-e'+(hasPh(p)?' ph':'')+'">'+(hasPh(p)?phImg(p.ph):p.emoji)+'</span><span><span class="mini-n">'+esc(p.title)+'</span><br><span class="mini-p">'+p.price+' баллов</span></span></div>';
+  }
+  return '<div class="sec" id="weekly">'+
+    '<div class="sec-head"><h2>Товар недели</h2><span class="sec-link" onclick="toast(\'Новый товар недели — каждый понедельник\')">Как это работает →</span></div>'+
+    '<div class="weekly">'+
+      '<div class="weekly-photo"><span class="wk-badge">−30%</span><img src="'+IMG.weekly+'" alt="Футболка TravelLine"></div>'+
+      '<div class="weekly-info">'+
+        '<div class="wk-kicker">Товар недели</div>'+
+        '<h2>'+esc(w.title)+'</h2>'+
+        '<p>'+esc(w.desc)+'</p>'+
+        '<div class="price-row"><span class="price-old">'+w.old+' баллов</span><span class="price-new">'+w.price+' <small>баллов</small></span><span class="save-chip">выгода '+save+' балла</span></div>'+
+        '<span class="wk-timer">⏳ до конца недели: <b id="weekly-timer">—</b></span>'+
+        '<div class="wk-stock">Осталось '+w.stock+' шт · цена действует до воскресенья</div>'+
+        '<div class="wk-actions">'+
+          '<button class="btn btn-red"'+(w.stock<=0?' disabled':'')+' onclick="addToCart(\'w1\')">Забрать за '+w.price+' баллов</button>'+
+          '<button class="btn btn-ghost"'+(w.stock<=0?' disabled':'')+' onclick="addToCart(\'w1\')">В корзину</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="mini-week">'+prev+'</div>'+
+    '<p class="mini-label">Прошлые товары недели — цены вернулись к обычным.</p>'+
+  '</div>';
+}
+function catCount(c){var n=0;for(var i=0;i<PRODUCTS.length;i++){if(PRODUCTS[i].cat===c)n++}return n}
+function plural(n,a,b,c){var m=n%100;if(m>=11&&m<=14)return c;var k=n%10;if(k===1)return a;if(k>=2&&k<=4)return b;return c}
+function quickItem(label,ph,cnt,act){
+  return '<button class="quick-item" onclick="'+act+'"><span class="quick-thumb ph">'+phImg(ph)+'</span>'+
+    '<span><span class="quick-t">'+label+'</span><span class="quick-n">'+cnt+'</span></span></button>';
+}
+function brandHtml(){
+  var grid=''; var n=0;
+  for(var i=0;i<PRODUCTS.length && n<4;i++){
+    if(PRODUCTS[i].cat!=='merch') continue;
+    grid+=productCard(PRODUCTS[i]); n++;
+  }
+  return '<div class="sec" id="brand"><div class="sec-head"><h2>С брендом TravelLine</h2>'+
+    '<span class="sec-link" onclick="openCat(\'merch\')">Все '+catCount('merch')+' товаров →</span></div>'+
+    '<p class="page-sub" style="margin:-8px 0 20px">Мерч с фирменной символикой: худи, футболки, свитшоты и аксессуары. В каталоге такие товары отмечены меткой TL.</p>'+
+    '<div class="grid">'+grid+'</div></div>';
+}
+function quickHtml(){
+  return '<div class="quick" id="quick">'+
+    quickItem('Мерч',0,catCount('merch')+' '+plural(catCount('merch'),'товар','товара','товаров'), "openCat('merch')")+
+    quickItem('Сертификаты',12,catCount('cert')+' '+plural(catCount('cert'),'сертификат','сертификата','сертификатов'), "openCat('cert')")+
+    quickItem('Бонусы',16,catCount('bonus')+' '+plural(catCount('bonus'),'бонус','бонуса','бонусов'), "openCat('bonus')")+
+    quickItem('Все товары',9,PRODUCTS.length+' '+plural(PRODUCTS.length,'товар','товара','товаров'), "goBuyer('catalog')")+
+  '</div>';
+}
+function openCat(c){ state.catPage=c; state.screen='cat'; render(); window.scrollTo(0,0) }
+function categoryHtml(){
+  var c = state.catPage, info = CATINFO[c]||CATINFO.merch;
+  var grid='', n=0;
+  for(var i=0;i<PRODUCTS.length;i++){
+    if(PRODUCTS[i].cat!==c) continue;
+    grid += productCard(PRODUCTS[i]); n++;
+  }
+  var pills='';
+  for(var k=1;k<CATS.length;k++){
+    pills += '<button class="cat-pill'+(CATS[k][0]===c?' on':'')+'" onclick="openCat(\''+CATS[k][0]+'\')">'+CATS[k][1]+'</button>';
+  }
+  pills += '<button class="cat-pill" onclick="goBuyer(\'catalog\')">Весь каталог</button>';
+  return '<div class="wrap">'+
+    '<button class="back-link" onclick="goBuyer()">← В магазин</button>'+
+    '<h1 class="page-title">'+info.title+'</h1>'+
+    '<p class="page-sub">'+info.text+'</p>'+
+    '<div class="cat-chips">'+pills+'</div>'+
+    '<p class="cat-count">'+info.title+' — '+n+' '+plural(n,'товар','товара','товаров')+' в наличии'+(c==='merch'?' · все с брендом TravelLine':'')+'</p>'+
+    '<div class="grid">'+(n?grid:'<p class="empty">В этой категории пока пусто.</p>')+'</div>'+
+    '<div class="order-actions" style="margin:30px 0 40px">'+
+      '<button class="btn btn-az" onclick="goBuyer(\'cartbox\')">Перейти в корзину</button>'+
+      '<button class="btn btn-ghost" onclick="goBuyer(\'catalog\')">Весь каталог</button>'+
+    '</div>'+
+  '</div>';
+}
+function buyerHtml(){
+  var tabs='';
+  for(var i=0;i<CATS.length;i++){
+    tabs+='<button class="tab'+(state.cat===CATS[i][0]?' tab-active':'')+'" onclick="setCat(\''+CATS[i][0]+'\')">'+CATS[i][1]+'</button>';
+  }
+  var q=state.q.trim().toLowerCase();
+  var grid='';var count=0;
+  for(var j=0;j<PRODUCTS.length;j++){
+    var p=PRODUCTS[j];
+    if(state.cat!=='all'&&p.cat!==state.cat)continue;
+    if(q&&p.title.toLowerCase().indexOf(q)<0)continue;
+    grid+=productCard(p);count++;
+  }
+  if(!count)grid='<p class="empty">Ничего не найдено — попробуйте другой запрос.</p>';
+  return '<div class="wrap">'+
+    sliderHtml()+quickHtml()+brandHtml()+weeklyHtml()+
+    '<div class="sec" id="catalog"><div class="sec-head"><h2>Каталог товаров</h2><span class="sec-link" onclick="toast(\'Все товары уже в каталоге\')">Смотреть все →</span></div>'+
+      '<div class="cat-bar"><div class="tabs">'+tabs+'</div><input class="search" id="search" placeholder="Поиск по каталогу" value="'+esc(state.q)+'" oninput="onSearch(this.value)"></div>'+
+      '<div class="grid">'+grid+'</div>'+
+    '</div>'+
+    '<div class="cartbox" id="cartbox"><h2>Моя корзина</h2>'+cartHtml()+'</div>'+
+    purchasesHtml()+
+    thanksHtml()+faqHtml()+
+  '</div>'+subscribeHtml();
+}
+function purchasesHtml(){
+  var rows='';var sum=0;var qtyAll=0;
+  for(var i=0;i<PURCHASES.length;i++){
+    var p=PURCHASES[i];
+    var line=p.price*p.qty;
+    sum+=line;qtyAll+=p.qty;
+    var thumb=p.img?'<img src="'+p.img+'" alt="">':(hasPh(p)?'':p.emoji);
+    rows+='<tr><td><div class="p-prod"><span class="p-thumb'+(hasPh(p)?' ph':'')+'">'+(hasPh(p)?phImg(p.ph):thumb)+'</span><span><span class="p-name">'+esc(p.title)+'</span><br><span class="p-num">'+p.qty+' шт · '+p.price+' баллов за шт.</span></span></div></td>'+
+      '<td class="p-cost">'+line+' <small>баллов</small></td>'+
+      '<td class="p-date">'+esc(p.date)+'</td>'+
+      '<td><span class="status '+(SCLASS[p.status]||'')+'">'+esc(p.status)+'</span></td></tr>';
+  }
+  var body=PURCHASES.length
+    ? '<div class="p-scroll"><table class="p-tbl"><thead><tr><th>Товар</th><th>Стоимость</th><th>Дата покупки</th><th>Статус</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<div class="p-foot"><span>Всего покупок: '+PURCHASES.length+' · '+qtyAll+' шт</span><b>'+sum+' баллов</b></div>'
+    : '<p class="p-empty">Покупок пока нет — выберите первый подарок в каталоге.</p>';
+  return '<div class="purchases" id="purchases">'+
+    '<div class="p-head"><h2>Мои покупки</h2><span class="p-sum">Товар, стоимость и дата покупки</span></div>'+
+    body+'</div>';
+}
+function thanksHtml(){
+  var feed='';
+  for(var t=0;t<THANKS.length;t++){
+    var th=THANKS[t];
+    feed+='<div class="fcard"><div class="fhead"><img class="avatar" src="'+avSrc(th.av)+'" alt=""><span class="fnames">'+esc(th.from)+' → '+esc(th.to)+'</span><span class="famount">+'+th.amount+'</span></div>'+
+      '<p class="ftext">'+esc(th.text)+'</p>'+
+      '<div class="ffoot"><span class="tagchip">'+esc(th.tag)+'</span><button class="like'+(th.liked?' like-on':'')+'" onclick="likeThanks('+t+')">♥ '+th.likes+'</button></div></div>';
+  }
+  return '<div class="sec" id="thanks"><div class="sec-head"><h2>Сказать спасибо</h2></div>'+
+    '<div class="thanks">'+
+      '<div class="thanks-left">'+
+      '<div class="thanks-photo"><img src="'+IMG.thanks+'" alt="Сотрудница TravelLine"></div>'+
+      '<div class="thanks-copy"><h2>Скажите спасибо —<br>коллега получит баллы</h2>'+
+        '<p>Скажите спасибо за помощь вне основных задач: менторство, подстраховку, перевод текста. Коллега получит баллы на подарки, а карточка попадёт в общую ленту.</p>'+
+        '<button class="btn btn-az" onclick="toast(\'Демо: форма благодарности — в серверной версии TL Market\')">Отправить спасибо</button>'+
+      '</div>'+
+      '</div>'+
+      '<div class="feed">'+feed+'</div>'+
+    '</div></div>';
+}
+function faqHtml(){
+  var faq='';
+  for(var f=0;f<FAQ.length;f++){faq+='<details class="faq-card"><summary>'+esc(FAQ[f][0])+'</summary><p>'+esc(FAQ[f][1])+'</p></details>'}
+  return '<div class="sec" id="faq"><div class="faq-center">'+
+    '<div class="faq-head-c"><h2>Часто задаваемые вопросы</h2><p>Не нашли ответ — напишите нам на <a href="mailto:tlmarket@travelline.ru">tlmarket@travelline.ru</a></p></div>'+
+    faq+'</div></div>';
+}
+
+function subscribeHtml(){
+  return '<div class="subscribe" id="subscribe"><div class="sub-inner">'+
+    '<div class="sub-copy">'+
+      '<div class="sub-kicker">Рассылка TL Market</div>'+
+      '<h2>Получайте самые интересные предложения первыми</h2>'+
+      '<div class="sub-card">'+
+        '<input class="sub-input" id="sub-email" type="email" placeholder="Введите ваш e-mail" onkeydown="subKey(event)">'+
+        '<button class="sub-btn" onclick="subscribeSubmit()">Подписаться</button>'+
+      '</div>'+
+      '<p class="sub-consent">Нажимая кнопку, я даю согласие на получение рекламной рассылки и обработку <a href="#" onclick="toast(\'Демо: откроется политика обработки персональных данных\');return false">персональных данных</a></p>'+
+      '<p class="sub-idea">Есть идея или пожелание? Напишите на <a href="mailto:tlmarket@travelline.ru">tlmarket@travelline.ru</a></p>'+
+    '</div>'+
+    '<div class="sub-art"><img src="'+IMG.sub+'" alt="Сотрудники в фирменных футболках"></div>'+
+  '</div></div>';
+}
+function cartHtml(){
+  var ids=[];for(var k in state.cart)ids.push(k);
+  if(!ids.length)return '<p class="empty">В корзине пока пусто — добавьте товары из каталога или «Товара недели».</p>';
+  var rows='';var total=0;
+  for(var i=0;i<ids.length;i++){
+    var p=findProduct(ids[i]);if(!p)continue;
+    var qty=state.cart[ids[i]];total+=p.price*qty;
+    var thumb=p.img?'<img src="'+p.img+'" alt="">':(hasPh(p)?'':p.emoji);
+    rows+='<div class="cart-row"><span class="cthumb'+(hasPh(p)?' ph':'')+'">'+(hasPh(p)?phImg(p.ph):thumb)+'</span><span class="ctitle">'+esc(p.title)+'</span>'+
+      '<span class="qty"><button onclick="decQty(\''+p.id+'\')">−</button><span>'+qty+'</span><button onclick="incQty(\''+p.id+'\')">+</button></span>'+
+      '<span class="cline">'+(p.price*qty)+' баллов</span></div>';
+  }
+  var enough=total<=state.balance;
+  var html=rows+'<div class="cart-total"><span>Итого</span><span>'+total+' баллов</span></div>';
+  if(!enough)html+='<div class="notice">Не хватает '+(total-state.balance)+' баллов — скажите спасибо коллегам или уменьшите заказ.</div>';
+  html+='<div class="cart-actions"><button class="btn btn-red"'+(enough?'':' disabled')+' onclick="checkout()">Оформить заказ</button><button class="btn btn-ghost" onclick="clearCart()">Очистить</button></div>';
+  return html;
+}
+function setCat(c){state.cat=c;render()}
+function pickCat(c){openCat(c)}
+function onSearch(v){state.q=v;var grid=document.querySelector('.grid');if(!grid)return;var q=v.trim().toLowerCase();var html='';var count=0;
+  for(var j=0;j<PRODUCTS.length;j++){var p=PRODUCTS[j];if(state.cat!=='all'&&p.cat!==state.cat)continue;if(q&&p.title.toLowerCase().indexOf(q)<0)continue;html+=productCard(p);count++}
+  grid.innerHTML=count?html:'<p class="empty">Ничего не найдено — попробуйте другой запрос.</p>';}
+function addToCart(id){
+  var p=findProduct(id);if(!p)return;
+  if(p.stock<=0){toast('Товара нет в наличии');return}
+  if(p.price>state.balance){toast('Не хватает баллов — скажите спасибо коллегам');return}
+  state.cart[id]=(state.cart[id]||0)+1;
+  toast(p.title+' — в корзине');
+  render();
+}
+function incQty(id){var p=findProduct(id);if(!p)return;if(state.cart[id]>=p.stock){toast('В наличии только '+p.stock+' шт');return}state.cart[id]++;render()}
+function decQty(id){if(!state.cart[id])return;state.cart[id]--;if(state.cart[id]<=0)delete state.cart[id];render()}
+function clearCart(){state.cart={};render()}
+
+/* ================= оформление заказа + Teams ================= */
+function checkout(){
+  var ids=[];for(var k in state.cart)ids.push(k);
+  if(!ids.length){toast('Корзина пуста');return}
+  var total=0;var lines=[];var parts=[];
+  for(var i=0;i<ids.length;i++){
+    var p=findProduct(ids[i]);var qty=state.cart[ids[i]];
+    total+=p.price*qty;
+    lines.push({title:p.title, emoji:p.emoji, ph:p.ph, img:p.img||'', qty:qty, price:p.price});
+    parts.push(p.title+' × '+qty);
+  }
+  if(total>state.balance){toast('Не хватает баллов');return}
+  for(var j=0;j<ids.length;j++){
+    var pp=findProduct(ids[j]);
+    if(pp)pp.stock=Math.max(0,pp.stock-state.cart[ids[j]]);
+  }
+  state.balance-=total;
+  if(STAFF[0])STAFF[0].balance=state.balance;
+  state.orderSeq++;
+  var num='TL-2026-'+String(state.orderSeq).padStart(4,'0');
+  var date='21 октября 2026';
+  var itemNames=parts.join(', ');
+  var teams=[
+    {to:'Иван Петров', role:'покупатель', text:'Заказ '+num+' принят: '+itemNames+'. Стоимость: '+total+' баллов. Выдача мерча — в ближайшую пятницу, кабинет 404.'},
+    {to:'Анна Смирнова', role:'администратор', text:'Новый заказ '+num+' от Ивана Петрова: '+itemNames+', '+total+' баллов. Нужно собрать мерч и подготовить к выдаче 25 октября.'}
+  ];
+  TEAMS.unshift({date:date+', 08:10', to:'Иван Петров', role:'покупатель', text:teams[0].text});
+  TEAMS.unshift({date:date+', 08:10', to:'Анна Смирнова', role:'администратор', text:teams[1].text});
+  state.orders.unshift({num:num, emp:'Иван Петров', av:'ivan', items:itemNames, total:total, status:'Новый', date:'21.10.2026', teams:true});
+  for(var m=0;m<lines.length;m++){
+    var prod=findProduct(ids[m]);
+    PURCHASES.unshift({date:'21.10.2026', title:lines[m].title, emoji:lines[m].emoji, ph:(prod?prod.ph:undefined), img:(prod?prod.img:''), qty:lines[m].qty, price:lines[m].price, status:'Новый'});
+  }
+  state.lastOrder={num:num, date:date, lines:lines, total:total, teams:teams};
+  state.cart={};
+  state.screen='order';
+  toast('Заказ '+num+' оформлен, уведомления отправлены в Teams');
+  render();
+  window.scrollTo(0,0);
+}
+function likeThanks(i){var t=THANKS[i];if(!t)return;t.liked=!t.liked;t.likes+=t.liked?1:-1;render()}
+
+function subKey(e){if(e&&e.key==='Enter'){subscribeSubmit()}}
+function subscribeSubmit(){
+  var el=$('#sub-email');
+  if(!el)return;
+  var v=el.value.trim();
+  if(v.indexOf('@')<0||v.indexOf('.')<0){toast('Укажите корректный e-mail');return}
+  el.value='';
+  toast('Спасибо! Теперь вы первыми узнаете о предложениях TL Market');
+}
+function tickCountdown(){
+  var el=document.getElementById('weekly-timer');
+  if(!el)return;
+  var now=new Date();
+  var end=new Date(now);
+  var day=now.getDay();
+  var add=(7-day)%7;
+  end.setDate(now.getDate()+add);
+  end.setHours(23,59,59,999);
+  var diff=end-now;if(diff<0)diff=0;
+  var d=Math.floor(diff/86400000);
+  var h=Math.floor(diff%86400000/3600000);
+  var m=Math.floor(diff%3600000/60000);
+  var s=Math.floor(diff%60000/1000);
+  el.textContent=(d>0?d+' дн ':'')+pad(h)+':'+pad(m)+':'+pad(s);
+}
+setInterval(tickCountdown,1000);
+setInterval(function(){ if(state.screen==='buyer'&&state.auth){ slideGo(state.slide+1) } },7000);
+
+/* ================= администратор ================= */
+function adminHtml(){
+  var tabs=[['orders','Заказы'],['catalog','Каталог и товары'],['accruals','Начисления'],['auto','Автоматизация'],['warnings','Предупреждения']];
+  var th='';
+  for(var i=0;i<tabs.length;i++){
+    th+='<button class="tab'+(state.adminTab===tabs[i][0]?' tab-active':'')+'" onclick="adminTab(\''+tabs[i][0]+'\')">'+tabs[i][1]+'</button>';
+  }
+  var body='';
+  if(state.adminTab==='orders')body=adminOrders();
+  else if(state.adminTab==='catalog')body=adminCatalog();
+  else if(state.adminTab==='accruals')body=adminAccruals();
+  else if(state.adminTab==='auto')body=adminAuto();
+  else body=adminWarnings();
+  return '<div class="wrap" style="padding-top:8px">'+
+    '<div class="admin-head"><div>'+
+      '<div class="admin-kicker">TL Market</div>'+
+      '<h1>Администрирование</h1>'+
+      '<p>Заказы, каталог, баллы и автоматика магазина</p>'+
+    '</div><div class="admin-user">Анна Смирнова<span>администратор</span></div></div>'+
+    adminKpi()+
+    '<div class="atabs">'+th+'</div>'+body+'</div>';
+}
+function adminTab(t){state.adminTab=t;render()}
+
+function adminKpi(){
+  var total=0, news=0, low=0, sum=0, i;
+  for(i=0;i<state.orders.length;i++){ total++; if(state.orders[i].status==='Новый')news++; if(state.orders[i].status!=='Отменён')sum+=state.orders[i].total; }
+  for(i=0;i<PRODUCTS.length;i++){ if(PRODUCTS[i].stock<=0)low++; }
+  var bal=0; for(i=0;i<STAFF.length;i++){ bal+=STAFF[i].balance; }
+  var avg=STAFF.length?Math.round(bal/STAFF.length):0;
+  return '<div class="kpi-grid">'+
+    '<div class="kpi"><div class="kpi-l">Заказы</div><div class="kpi-v">'+total+'</div><div class="kpi-s"><b>'+news+'</b> новых</div></div>'+
+    '<div class="kpi"><div class="kpi-l">Списано баллов</div><div class="kpi-v">'+sum+'</div><div class="kpi-s">по всем заказам</div></div>'+
+    '<div class="kpi"><div class="kpi-l">Товары</div><div class="kpi-v">'+PRODUCTS.length+'</div><div class="kpi-s">'+(low?('<b>'+low+'</b> нет в наличии'):'все в наличии')+'</div></div>'+
+    '<div class="kpi"><div class="kpi-l">Сотрудники</div><div class="kpi-v">'+STAFF.length+'</div><div class="kpi-s">средний баланс '+avg+'</div></div>'+
+  '</div>';
+}
+function adminOrders(){
+  var rows='';
+  for(var i=0;i<state.orders.length;i++){
+    var o=state.orders[i];
+    var next=FLOW[o.status]||[];
+    var opts='';
+    for(var j=0;j<next.length;j++)opts+='<option value="'+next[j]+'">'+next[j]+'</option>';
+    var acts='';
+    if(next.length)acts+='<select class="sel" id="st-'+o.num+'">'+opts+'</select><button class="btn btn-az btn-xs" onclick="applyStatus(\''+o.num+'\')">Применить</button>';
+    if(o.status!=='Отменён')acts+='<button class="btn btn-danger btn-xs" onclick="refund(\''+o.num+'\')">Возврат</button>';
+    rows+='<tr><td><b>'+o.num+'</b><br><span style="color:#7C8B9E;font-size:12px">'+o.date+'</span></td>'+
+      '<td><div class="emp"><img src="'+avSrc(o.av)+'" alt="">'+esc(o.emp)+'</div></td>'+
+      '<td>'+esc(o.items)+'</td><td><b>'+o.total+'</b></td>'+
+      '<td><span class="status '+(SCLASS[o.status]||'')+'">'+o.status+'</span></td>'+
+      '<td>'+(o.teams?'<span class="sent">✓ отправлено</span>':'—')+'</td>'+
+      '<td><div class="acts">'+acts+'</div></td></tr>';
+  }
+  return '<table class="tbl"><tr><th>Заказ</th><th>Сотрудник</th><th>Состав</th><th>Сумма</th><th>Статус</th><th>Teams</th><th>Действия</th></tr>'+rows+'</table>'+
+    '<p class="admin-note">Смена статуса идёт по цепочке: Новый → В сборке → Готов к выдаче → Выдан. При оформлении заказа уведомления о выдаче мерча уходят в Teams покупателю и администратору. «Возврат» отменяет заказ и возвращает баллы.</p>';
+}
+
+function adminCatalog(){
+  var catOpts='';
+  for(var c=1;c<CATS.length;c++){catOpts+='<option value="'+CATS[c][0]+'">'+CATS[c][1]+'</option>'}
+  var form='<div class="panel"><h2>Создать товар</h2>'+
+    '<div class="pf-grid">'+
+      '<div>'+
+        '<label class="flabel">Название</label><input class="inp" id="pf-title" placeholder="Например: Термокружка TravelLine">'+
+        '<label class="flabel">Категория</label><select class="sel" id="pf-cat" style="width:100%">'+catOpts+'</select>'+
+        '<label class="flabel">Стоимость, баллы</label><input class="inp" id="pf-price" type="number" value="50">'+
+        '<label class="flabel">Количество</label><input class="inp" id="pf-stock" type="number" value="10">'+
+      '</div>'+
+      '<div>'+
+        '<label class="flabel">Картинка товара</label>'+
+        '<label class="upload-box"><input type="file" id="pf-file" accept="image/*" onchange="onProductImage(this)"><span style="font-size:22px">🖼</span><span>Загрузить изображение товара</span><span class="up-hint">PNG или JPG — попадёт в карточку каталога</span></label>'+
+        '<div class="pf-preview" id="pf-preview"></div>'+
+      '</div>'+
+    '</div>'+
+    '<label class="flabel">Анонс</label><textarea class="inp" id="pf-desc" placeholder="Короткий анонс, который увидят покупатели"></textarea>'+
+    '<div style="height:16px"></div>'+
+    '<button class="btn btn-az" onclick="saveProduct()">Добавить товар в каталог</button></div>';
+  var rows='';
+  for(var i=0;i<PRODUCTS.length;i++){
+    var p=PRODUCTS[i];
+    var cat='';
+    for(var c2=0;c2<CATS.length;c2++)if(CATS[c2][0]===p.cat)cat=CATS[c2][1];
+    var thumb=p.img?'<span class="thumb-s"><img src="'+p.img+'" alt=""></span>':(hasPh(p)?'<span class="thumb-s ph">'+phImg(p.ph)+'</span>':p.emoji+' ');
+    rows+='<tr><td>'+thumb+'<b>'+esc(p.title)+'</b></td><td>'+cat+'</td><td>'+p.price+'</td><td><span class="qty"><button onclick="stockDelta(\''+p.id+'\',-1)">−</button><span>'+p.stock+'</span><button onclick="stockDelta(\''+p.id+'\',1)">+</button></span></td></tr>';
+  }
+  return '<div class="wk-admin"><span class="e'+(typeof WEEKLY.ph==='number'?' ph':'')+'">'+(typeof WEEKLY.ph==='number'?phImg(WEEKLY.ph):'')+'</span><span><b>Товар недели:</b> '+esc(WEEKLY.title)+' — '+WEEKLY.price+' баллов (обычно '+WEEKLY.old+'), осталось '+WEEKLY.stock+' шт.</span></div>'+
+    form+
+    '<table class="tbl"><tr><th>Товар</th><th>Категория</th><th>Цена, баллы</th><th>Остаток</th></tr>'+rows+'</table>'+
+    '<p class="admin-note">Новый товар сразу появляется в каталоге покупателя. При нулевом остатке показывается «Нет в наличии», кнопка покупки блокируется.</p>';
+}
+function stockDelta(id,d){
+  var p=findProduct(id);if(!p)return;
+  p.stock=Math.max(0,p.stock+d);
+  if(id===WEEKLY.id)WEEKLY.stock=p.stock;
+  render();
+}
+function onProductImage(input){
+  var f=input.files&&input.files[0];
+  if(!f)return;
+  var r=new FileReader();
+  r.onload=function(e){
+    pendingImage=e.target.result;
+    var pv=document.getElementById('pf-preview');
+    if(pv){pv.innerHTML='<img src="'+pendingImage+'" alt="Предпросмотр">'}
+  };
+  r.readAsDataURL(f);
+}
+function saveProduct(){
+  var t=$('#pf-title').value.trim();
+  var c=$('#pf-cat').value;
+  var pr=Number($('#pf-price').value);
+  var st=Number($('#pf-stock').value);
+  var d=$('#pf-desc').value.trim();
+  if(t.length<3){toast('Укажите название товара');return}
+  if(!pr||pr<1){toast('Укажите стоимость в баллах');return}
+  if(st<0||isNaN(st)){st=0}
+  state.productSeq++;
+  var p={id:'p'+state.productSeq, title:t, emoji:'🎁', img:pendingImage||'', price:pr, cat:c, badge:'НОВИНКА', stock:st, desc:d};
+  PRODUCTS.push(p);
+  pendingImage=null;
+  toast('Товар «'+t+'» добавлен в каталог');
+  render();
+}
+
+function adminAccruals(){
+  var opts='';
+  for(var i=0;i<EMPLOYEES.length;i++)opts+='<option value="'+EMPLOYEES[i][1]+'">'+EMPLOYEES[i][1]+'</option>';
+  var log='';
+  for(var j=0;j<state.log.length;j++)log+='<div class="log-row"><span class="log-dot">+</span><span>'+esc(state.log[j])+'</span></div>';
+  var staff='';
+  for(var s=0;s<STAFF.length;s++){
+    staff+='<div class="kv"><span>'+esc(STAFF[s].name)+' · '+esc(STAFF[s].dept)+'</span><b>'+STAFF[s].balance+' баллов</b></div>';
+  }
+  return '<div class="panel"><h2>Начислить баллы</h2>'+
+    '<label class="flabel">Сотрудник</label><select class="sel" id="acc-emp" style="width:100%">'+opts+'</select>'+
+    '<label class="flabel">Баллы</label><input class="inp" id="acc-amount" type="number" value="10">'+
+    '<label class="flabel">Причина</label><input class="inp" id="acc-reason" placeholder="Например: участие в мероприятии">'+
+    '<div style="height:16px"></div>'+
+    '<button class="btn btn-az" onclick="accrual()">Начислить</button></div>'+
+    '<div class="panel"><h2>Балансы сотрудников</h2>'+staff+'</div>'+
+    '<div class="panel"><h2>Журнал ручных начислений</h2>'+(log||'<p class="empty">Пока пусто — начислите первые баллы.</p>')+'</div>';
+}
+function accrual(){
+  var emp=$('#acc-emp').value;
+  var amount=Number($('#acc-amount').value);
+  var reason=$('#acc-reason').value||'Ручное начисление';
+  if(!amount){toast('Укажите количество баллов');return}
+  for(var i=0;i<STAFF.length;i++){if(STAFF[i].name===emp)STAFF[i].balance+=amount}
+  if(emp==='Иван Петров')state.balance+=amount;
+  state.log.unshift(emp+' — +'+amount+' баллов ('+reason+')');
+  toast('Начислено: '+emp+' +'+amount+' баллов');
+  render();
+}
+
+/* ================= автоматизация ================= */
+function adminAuto(){
+  var m=AUTO.monthly, y=AUTO.yearly;
+  var autoLog='';
+  for(var i=0;i<AUTOLOG.length;i++){
+    autoLog+='<div class="log-row"><span class="log-date">'+esc(AUTOLOG[i].date)+'</span><span>'+esc(AUTOLOG[i].text)+'</span></div>';
+  }
+  var learnLog='';
+  for(var j=0;j<LEARN.log.length;j++){
+    learnLog+='<div class="log-row"><span class="log-date">'+esc(LEARN.log[j].date)+'</span><span>'+esc(LEARN.log[j].text)+'</span></div>';
+  }
+  var teamsLog='';
+  for(var t=0;t<Math.min(TEAMS.length,6);t++){
+    teamsLog+='<div class="log-row"><span class="log-date">'+esc(TEAMS[t].date)+'</span><span><b>'+esc(TEAMS[t].to)+'</b> ('+esc(TEAMS[t].role)+'): '+esc(TEAMS[t].text)+'</span></div>';
+  }
+  return '<div class="auto-grid">'+
+      '<div class="auto-card"><h3>Ежемесячное начисление</h3><p>1-го числа каждому сотруднику — автоматически.</p>'+
+        '<div class="auto-row"><span>Включено</span><label class="switch"><input type="checkbox" '+(m.on?'checked':'')+' onchange="toggleAuto(\'monthly\')"><span class="sw-slider"></span></label></div>'+
+        '<div class="auto-row"><span>Сумма</span><b>+' + m.amount + ' баллов</b></div>'+
+        '<div class="auto-row"><span>Сотрудников</span><b>'+STAFF.length+'</b></div>'+
+        '<div class="auto-next">Следующий запуск: '+(m.on?m.next:'выключено')+'</div>'+
+        '<button class="btn btn-az btn-sm" onclick="runMonthly()">Выполнить сейчас</button></div>'+
+      '<div class="auto-card"><h3>Годовое списание</h3><p>31 декабря неиспользованные баллы сгорают у всех.</p>'+
+        '<div class="auto-row"><span>Включено</span><label class="switch"><input type="checkbox" '+(y.on?'checked':'')+' onchange="toggleAuto(\'yearly\')"><span class="sw-slider"></span></label></div>'+
+        '<div class="auto-row"><span>Несгораемый остаток</span><b>'+y.keep+' баллов</b></div>'+
+        '<div class="auto-row"><span>Сотрудников</span><b>'+STAFF.length+'</b></div>'+
+        '<div class="auto-next">Следующий запуск: '+(y.on?y.next:'выключено')+'</div>'+
+        '<button class="btn btn-az btn-sm" onclick="runYearly()">Выполнить сейчас</button></div>'+
+    '</div>'+
+    '<div class="integration" style="margin-top:18px"><h2 style="font-size:18px;margin:0 0 14px">Журнал автоматических операций</h2>'+autoLog+'</div>'+
+    '<div class="integration"><div class="int-head"><div class="int-logo">🎓</div><div><div class="int-name">Портал обучения</div><div class="int-state">'+(LEARN.connected?'Подключено · SSO /sso/login':'Не подключено')+'</div></div></div>'+
+      '<div class="kv"><span>Адрес</span><b>'+LEARN.url+'</b></div>'+
+      '<div class="kv"><span>Сотрудников в системе</span><b>'+LEARN.employees+'</b></div>'+
+      '<div class="kv"><span>Начислений за курсы</span><b>'+LEARN.accruals+'</b></div>'+
+      '<div class="kv"><span>Новых в очереди</span><b>'+LEARN.queue.length+'</b></div>'+
+      '<div class="kv"><span>Последняя синхронизация</span><b>'+esc(LEARN.lastSync)+'</b></div>'+
+      '<div class="int-actions"><button class="btn btn-az btn-sm" onclick="syncLearn()">Синхронизировать сейчас</button><span style="color:#7C8B9E;font-size:12.5px">Забирает новых сотрудников и баллы за курсы</span></div>'+
+      '<div style="margin-top:16px">'+learnLog+'</div></div>'+
+    '<div class="integration"><div class="int-head"><div class="int-logo" style="background:#EEEEF7">🟣</div><div><div class="int-name">Уведомления в Microsoft Teams</div><div class="int-state">Подключено · вебхук канала TL Market</div></div></div>'+
+      '<div class="kv"><span>Кому</span><b>покупатель + администратор</b></div>'+
+      '<div class="kv"><span>Событие</span><b>оформлен заказ — выдача мерча</b></div>'+
+      '<div class="kv"><span>Отправлено сообщений</span><b>'+TEAMS.length+'</b></div>'+
+      '<div style="margin-top:16px">'+teamsLog+'</div></div>';
+}
+function toggleAuto(key){
+  if(key==='monthly')AUTO.monthly.on=!AUTO.monthly.on;
+  else AUTO.yearly.on=!AUTO.yearly.on;
+  toast(key==='monthly'?(AUTO.monthly.on?'Ежемесячное начисление включено':'Ежемесячное начисление выключено'):(AUTO.yearly.on?'Годовое списание включено':'Годовое списание выключено'));
+  render();
+}
+function runMonthly(){
+  var a=AUTO.monthly.amount;
+  for(var i=0;i<STAFF.length;i++){STAFF[i].balance+=a}
+  syncMyBalance();
+  AUTO.monthly.last='21 октября 2026, 08:15';
+  AUTOLOG.unshift({date:'21 октября 2026', text:'Ежемесячное начисление: +'+a+' баллов каждому сотруднику ('+STAFF.length+')'});
+  toast('Начислено по '+a+' баллов всем сотрудникам');
+  render();
+}
+function runYearly(){
+  var keep=AUTO.yearly.keep||0;
+  var burned=0;
+  for(var i=0;i<STAFF.length;i++){
+    var b=STAFF[i].balance;
+    var cut=Math.max(0,b-keep);
+    burned+=cut;
+    STAFF[i].balance=Math.min(b,keep);
+  }
+  syncMyBalance();
+  AUTO.yearly.last='21 октября 2026, 08:15';
+  AUTOLOG.unshift({date:'21 октября 2026', text:'Годовое списание: сгорело '+burned+' баллов у '+STAFF.length+' сотрудников'});
+  toast('Списано '+burned+' баллов у '+STAFF.length+' сотрудников');
+  render();
+}
+function syncLearn(){
+  if(LEARN.queue.length){
+    var n=LEARN.queue.shift();
+    STAFF.push({id:'e'+(STAFF.length+1), name:n.name, av:n.av, dept:n.dept, balance:n.points});
+    LEARN.employees++;
+    LEARN.accruals++;
+    LEARN.lastSync='21 октября 2026, 08:16';
+    LEARN.log.unshift({date:LEARN.lastSync, text:'Новый сотрудник '+n.name+' ('+n.dept+') — '+n.points+' баллов за курс «'+n.course+'»'});
+    toast('Новый сотрудник '+n.name+': +'+n.points+' баллов');
+    render();
+    return;
+  }
+  if(LEARN.pending.length){
+    var p=LEARN.pending.shift();
+    var s=findStaff(p.empId);
+    if(s)s.balance+=p.points;
+    if(p.empId==='e1')state.balance+=p.points;
+    LEARN.accruals++;
+    LEARN.lastSync='21 октября 2026, 08:16';
+    LEARN.log.unshift({date:LEARN.lastSync, text:'Курс «'+p.course+'»: +'+p.points+' баллов '+(s?s.name:'сотруднику')});
+    toast('Баллы за курс «'+p.course+'»: +'+p.points);
+    render();
+    return;
+  }
+  LEARN.lastSync='21 октября 2026, 08:16';
+  LEARN.log.unshift({date:LEARN.lastSync, text:'Синхронизация завершена: новых сотрудников и начислений нет'});
+  toast('Всё синхронизировано, изменений нет');
+  render();
+}
+
+function adminWarnings(){
+  var html='';
+  for(var i=0;i<state.warnings.length;i++){
+    var w=state.warnings[i];
+    html+='<div class="warn"><div class="warn-t">'+esc(w.title)+'</div><div class="warn-x">'+esc(w.text)+'</div><div class="warn-d">'+w.date+'</div></div>';
+  }
+  return html;
+}
+function applyStatus(num){
+  var sel=document.getElementById('st-'+num);
+  if(!sel)return;
+  var order=null;
+  for(var i=0;i<state.orders.length;i++)if(state.orders[i].num===num)order=state.orders[i];
+  if(!order)return;
+  var v=sel.value;
+  if(v==='Отменён'){refund(num);return}
+  order.status=v;
+  toast('Заказ '+num+': статус «'+v+'»');
+  render();
+}
+function refund(num){
+  var order=null;
+  for(var i=0;i<state.orders.length;i++)if(state.orders[i].num===num)order=state.orders[i];
+  if(!order)return;
+  if(order.status==='Отменён'){toast('Заказ уже отменён');return}
+  order.status='Отменён';
+  if(order.emp==='Иван Петров'){state.balance+=order.total;if(STAFF[0])STAFF[0].balance=state.balance;toast('Возврат '+order.num+': +'+order.total+' баллов Ивану Петрову');}
+  else toast('Возврат '+order.num+': баллы вернулись сотруднику '+order.emp);
+  render();
+}
+
+/* ================= старт ================= */
+window.addEventListener('keydown',function(e){
+  if(e&&e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a'||e.key==='Ф'||e.key==='ф')){adminGate()}
+});
+render();
+</script>
+</body>
+</html>
